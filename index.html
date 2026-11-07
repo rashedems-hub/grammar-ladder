@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1d2430">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="سُلّم القواعد">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<title>سُلّم القواعد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1d2430;--mute:#6b7280;--line:#e7e3da;--acc:#2b8bc6;--ok:#1f9d63;--bad:#d1434b;--okbg:#e8f6ee;--badbg:#fdecec;--r:16px}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--ink:#eef0f3;--mute:#9aa3af;--line:#2c323b;--okbg:#173326;--badbg:#3a1d20}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;font-size:16px;line-height:1.7}
+.en,.enb{font-family:Inter,system-ui,sans-serif;direction:ltr;unicode-bidi:isolate}
+.en{font-weight:600;color:var(--acc)}
+#app{max-width:640px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(80px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left))}
+body{overscroll-behavior-y:none;-webkit-user-select:none;user-select:none}input,textarea{-webkit-user-select:text;user-select:text}
+.install{background:var(--okbg);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:14px}.install b{display:block;font-size:15px}.install .row{display:flex;gap:8px;margin-top:8px}.install button{padding:6px 12px;border-radius:10px;background:var(--ok);color:#fff;font-weight:600}.install button.x{background:transparent;color:var(--mute)}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
+.top{display:flex;align-items:center;gap:10px;margin:4px 0 16px}
+.top h1{font-size:22px;margin:0;flex:1}
+.back{width:40px;height:40px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:20px}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.act{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:right}
+.act b{display:block;font-size:16px}.act small{color:var(--mute);font-size:13px}
+.act.main{background:var(--ink);color:var(--bg);border-color:var(--ink)}.act.main small{color:inherit;opacity:.75}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc);border-radius:9px;transition:width .3s}
+.lvl{margin:22px 0 8px;display:flex;align-items:center;gap:10px}
+.badge{font-family:Inter;font-weight:700;color:#fff;border-radius:10px;padding:2px 9px;font-size:14px}
+.lvl h2{margin:0;font-size:18px;flex:1}.lvl span{color:var(--mute);font-size:13px}
+.lesson{display:flex;align-items:center;gap:12px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;text-align:right}
+.num{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;border:2px solid var(--line)}
+.num.done{color:#fff;border-color:transparent}
+.lesson .t{flex:1;min-width:0}.lesson .t b{display:block;font-size:15px}.lesson .t small{color:var(--mute);font-family:Inter;direction:ltr;display:block;text-align:right}
+.score{font-size:13px;color:var(--mute);font-family:Inter}
+.ltest{width:100%;border:1.5px dashed var(--line);border-radius:14px;padding:10px;color:var(--mute);font-size:14px}
+h3{font-size:16px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.rule p{margin:0 0 10px}.rule p:last-child{margin:0}
+.formula{display:flex;flex-direction:column;gap:6px}
+.formula div{background:var(--bg);border-radius:10px;padding:8px 12px;font-family:Inter,"IBM Plex Sans Arabic";font-weight:500;direction:ltr;text-align:left;unicode-bidi:plaintext}
+.ex{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}.ex:last-child{border:0}
+.ex .enb{display:block;font-weight:600;text-align:left}.ex small{color:var(--mute)}
+.ex>div{flex:1}
+.spk{width:34px;height:34px;flex:none;border-radius:10px;background:var(--bg);font-size:16px}
+.mis{padding:10px 0;border-bottom:1px solid var(--line)}.mis:last-child{border:0}
+.wrong{color:var(--bad);text-decoration:line-through;display:block;text-align:left}.right{color:var(--ok);font-weight:600;display:block;text-align:left}
+.mis small{color:var(--mute)}
+.tip{background:linear-gradient(135deg,#fff6df,#fdecc8);color:#5b4310;border:0}
+@media (prefers-color-scheme:dark){.tip{background:#33290f;color:#f2dca4}}
+.btn{display:block;width:100%;padding:14px;border-radius:14px;background:var(--acc);color:#fff;font-weight:700;font-size:16px;margin-top:10px}
+.btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4}
+.qhead{display:flex;align-items:center;gap:10px;margin-bottom:14px}.qhead .bar{flex:1}
+.qtype{font-size:13px;color:var(--mute);margin-bottom:6px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{background:var(--bg);border-radius:8px;padding:0 8px}
+.qtext{font-size:20px;font-weight:600;margin-bottom:16px;unicode-bidi:plaintext;text-align:start}
+.qtext .enb{display:block;text-align:left}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:8px;font-family:Inter,"IBM Plex Sans Arabic";font-size:16px;unicode-bidi:plaintext}
+.opt.sel{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 20%,transparent)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.no{border-color:var(--bad);background:var(--badbg)}
+input.fill{width:100%;padding:14px 16px;font-size:18px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-family:Inter;direction:ltr;text-align:left;outline:none}
+input.fill:focus{border-color:var(--acc)}
+.zone{min-height:58px;border:1.5px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;direction:ltr;margin-bottom:12px;align-content:flex-start}
+.pool{display:flex;flex-wrap:wrap;gap:6px;direction:ltr}
+.chip{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:7px 12px;font-family:Inter;font-weight:500}
+.zone .chip{border-color:var(--acc)}
+.hint{color:var(--mute);font-size:14px;margin:-8px 0 12px}
+.fb{border-radius:14px;padding:12px 14px;margin-top:12px}
+.fb.ok{background:var(--okbg)}.fb.no{background:var(--badbg)}
+.fb b{display:block}.fb .ans{font-family:Inter;direction:ltr;text-align:left;font-weight:600;margin:4px 0}
+.big{font-size:54px;font-weight:700;text-align:center;font-family:Inter;margin:6px 0 0}
+.center{text-align:center}
+.muted{color:var(--mute);font-size:14px}
+.wk{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.wk:last-child{border:0}
+.wk div{flex:1}.cnt{background:var(--badbg);color:var(--bad);font-weight:700;border-radius:8px;padding:0 9px;font-family:Inter}
+textarea{width:100%;min-height:90px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-family:monospace;font-size:12px;padding:10px;direction:ltr}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.3s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+const LEVELS=[
+{code:"A1",ar:"مبتدئ",desc:"الأساسات التي لا تُبنى جملة بدونها",c:"#2f9e6e"},
+{code:"A2",ar:"أساسي",desc:"الأزمنة البسيطة والتعبير اليومي",c:"#2b8bc6"},
+{code:"B1",ar:"متوسط",desc:"الأزمنة التامة والشرط والجمل الموصولة",c:"#7a5cd6"},
+{code:"B2",ar:"فوق المتوسط",desc:"المبني للمجهول والكلام المنقول والاستنتاج",c:"#d9822b"},
+{code:"C1",ar:"احتراف",desc:"تراكيب متقدمة يستخدمها المتحدث المحترف",c:"#c8434f"}
+];
+const LESSONS=[];
+function L(o){LESSONS.push(o)}
+
+/* ================= A1 ================= */
+L({id:"a1-1",lv:0,en:"Verb to be",ar:"فعل الكينونة am / is / are",
+goal:"تقول من أنت وكيف حالك وأين أنت بجملة صحيحة.",
+r:["في العربية نقول «أنا ممرض» بدون فعل، أما في الإنجليزية فالجملة <b>لا تكتمل</b> بدون فعل. لذلك نستخدم فعل <span class=en>be</span> بمعنى (يكون) لوصف الشخص أو حالته أو مكانه.",
+"يتغيّر شكل الفعل حسب الفاعل: <span class=en>am</span> مع I فقط، و<span class=en>is</span> مع المفرد الغائب، و<span class=en>are</span> مع الجمع و you.",
+"<b>النفي:</b> نضع <span class=en>not</span> بعد الفعل مباشرة. <b>السؤال:</b> نقدّم الفعل على الفاعل."],
+f:["I → am","He / She / It → is","You / We / They → are","نفي: am not · isn't · aren't","سؤال: Am I…? · Is she…? · Are they…?"],
+ex:[["I am a paramedic.","أنا مسعف."],["The clinic is open.","العيادة مفتوحة."],["We aren't late.","لسنا متأخرين."],["Is the doctor here?","هل الطبيب هنا؟"]],
+m:[["He doctor.","He is a doctor.","لا يُحذف فعل be أبداً كما نحذفه في العربية."],["I is happy.","I am happy.","مع I نستخدم am فقط."],["You is right.","You are right.","you دائماً مع are حتى لو كان المقصود شخصاً واحداً."]],
+tip:"اسأل نفسك عند كل جملة: أين الفعل؟ إذا لم تجد فعلاً فغالباً تحتاج am / is / are.",
+q:[["mc","I ___ from Saudi Arabia.",["am","is","are"],0,"مع I نستخدم am."],
+["mc","My brothers ___ at school.",["is","am","are"],2,"My brothers جمع = they ← are."],
+["mc","The patient ___ in room 4.",["are","is","am"],1,"The patient مفرد = he/she ← is."],
+["fill","She ___ not tired. (be)",["is"],"She ← is، والنفي is not."],
+["fill","___ you a student? (be)",["are"],"في السؤال نقدّم الفعل: Are you…?"],
+["mc","اختر الجملة الصحيحة:",["He a nurse.","He is a nurse.","He are a nurse."],1,"لا بد من الفعل is مع he."],
+["mc","They ___ at home. (نفي)",["isn't","aren't","amn't"],1,"They ← are، ونفيها aren't."],
+["ord","Is the clinic open today?","هل العيادة مفتوحة اليوم؟","السؤال يبدأ بالفعل Is ثم الفاعل the clinic."]]});
+
+L({id:"a1-2",lv:0,en:"Pronouns & possessives",ar:"الضمائر وصفات الملكية",
+goal:"تفرّق بين I و me و my وتستخدم كل واحد في مكانه.",
+r:["<b>ضمير الفاعل</b> يأتي قبل الفعل ويقوم بالفعل: <span class=en>She works.</span>",
+"<b>ضمير المفعول</b> يأتي بعد الفعل أو بعد حرف الجر: <span class=en>Call me. · with them</span>",
+"<b>صفة الملكية</b> تأتي قبل الاسم مباشرة: <span class=en>my car · their house</span>. ولغير العاقل نستخدم <span class=en>it / its</span>.",
+"انتبه: <span class=en>its</span> = ملكية، و <span class=en>it's</span> = it is."],
+f:["فاعل: I · you · he · she · it · we · they","مفعول: me · you · him · her · it · us · them","ملكية: my · your · his · her · its · our · their"],
+ex:[["She helps him every day.","هي تساعده كل يوم."],["This is our clinic.","هذه عيادتنا."],["Give it to them.","أعطها لهم."],["The dog wagged its tail.","هزّ الكلب ذيله."]],
+m:[["Me and him are friends.","He and I are friends.","في موضع الفاعل نستخدم ضمائر الفاعل، ونضع I في الأخير تأدباً."],["The cat ate it's food.","The cat ate its food.","it's تعني it is وليست ملكية."]],
+tip:"اسأل: هل الكلمة تفعل الفعل؟ ← فاعل. هل يقع عليها الفعل؟ ← مفعول. هل بعدها اسم تملكه؟ ← ملكية.",
+q:[["mc","___ is my sister.",["Her","She","Hers"],1,"في موضع الفاعل: She."],
+["mc","Call ___ tomorrow, please. (أنا)",["I","me","my"],1,"بعد الفعل نستخدم ضمير المفعول me."],
+["mc","This is ___ car. (هم)",["they","them","their"],2,"قبل الاسم نستخدم صفة الملكية their."],
+["mc","The cat is eating ___ food.",["it's","its","it"],1,"its للملكية بدون فاصلة علوية."],
+["fill","I know ___. (هو - مفعول)",["him"],"he في موضع المفعول تصبح him."],
+["fill","___ names are Ali and Sara. (نحن)",["our"],"قبل الاسم names نستخدم صفة الملكية our."],
+["mc","اختر الجملة الصحيحة:",["Me and him are friends.","He and I are friends.","Him and I are friends."],1,"الفاعل يحتاج ضمائر فاعل: He and I."],
+["ord","She gave them her phone number.","أعطتهم رقم هاتفها.","She فاعل، them مفعول، her ملكية قبل الاسم."]]});
+
+L({id:"a1-3",lv:0,en:"Articles a / an / the",ar:"أدوات التعريف والتنكير",
+goal:"تختار بين a و an و the أو لا شيء بثقة.",
+r:["<span class=en>a / an</span> = نكرة مفردة معدودة (شيء واحد غير محدد). نستخدم <span class=en>an</span> قبل <b>صوت</b> متحرك لا حرف متحرك: <span class=en>an hour</span> (الـ h لا تُنطق) لكن <span class=en>a university</span> (تُنطق يو).",
+"<span class=en>the</span> = معرفة: شيء محدد يعرفه المتكلم والسامع، أو ذُكر من قبل، أو فريد من نوعه (<span class=en>the sun</span>).",
+"<b>لا أداة</b> عند التعميم بالجمع أو غير المعدود: <span class=en>Doctors help people. · I like coffee.</span>"],
+f:["a + صوت ساكن: a car · a university","an + صوت متحرك: an apple · an hour","the + شيء محدد أو مذكور سابقاً","∅ (لا شيء) + تعميم: Cats are cute."],
+ex:[["I need an ambulance.","أحتاج سيارة إسعاف."],["I bought a book. The book is great.","اشتريت كتاباً. الكتاب رائع."],["The moon is bright tonight.","القمر ساطع الليلة."],["Water is important.","الماء مهم."]],
+m:[["I love the cats. (تعميم)","I love cats.","في العربية نعرّف للتعميم (أحب القطط)، وفي الإنجليزية لا نضع the."],["She is engineer.","She is an engineer.","المهن المفردة تحتاج a/an."]],
+tip:"قل الكلمة بصوت عالٍ: هل تبدأ بصوت (آ، إ، أو)؟ ← an. السمع هو الحكم وليس الكتابة.",
+q:[["mc","I need ___ ambulance.",["a","an","the"],1,"ambulance تبدأ بصوت متحرك."],
+["mc","She is ___ university student.",["a","an"],0,"university تُنطق (يو) وهو صوت ساكن."],
+["mc","Wait ___ hour.",["a","an"],1,"الـ h في hour صامتة فتبدأ بصوت متحرك."],
+["mc","I bought a book. ___ book is very good.",["A","An","The"],2,"ذُكر الكتاب سابقاً فصار معرفة."],
+["mc","___ sun is hot today.",["A","The","(لا شيء)"],1,"الشمس فريدة فنستخدم the."],
+["fill","He is ___ engineer.",["an"],"engineer تبدأ بصوت متحرك."],
+["mc","الجملة الصحيحة للتعميم (أحب القطط عموماً):",["I love the cats.","I love cats.","I love a cats."],1,"التعميم بالجمع بدون أداة."],
+["ord","He is an honest man.","إنه رجل صادق.","honest تبدأ بصوت متحرك لأن الـ h صامتة."]]});
+
+L({id:"a1-4",lv:0,en:"Plurals & this / that",ar:"الجمع وأسماء الإشارة",
+goal:"تجمع الأسماء بشكل صحيح وتشير للقريب والبعيد.",
+r:["القاعدة العامة: نضيف <span class=en>s</span>. بعد s, sh, ch, x وبعض الكلمات المنتهية بـ o نضيف <span class=en>es</span>: <span class=en>boxes · potatoes</span>.",
+"ساكن + y ← ies: <span class=en>baby → babies</span>. لكن متحرك + y ← s فقط: <span class=en>day → days</span>. و f/fe ← ves: <span class=en>knife → knives</span>.",
+"جموع شاذة يجب حفظها: <span class=en>man→men · woman→women · child→children · person→people · tooth→teeth · foot→feet · mouse→mice</span>.",
+"<span class=en>this / these</span> للقريب (مفرد/جمع)، و <span class=en>that / those</span> للبعيد (مفرد/جمع)."],
+f:["قريب: this (مفرد) · these (جمع)","بعيد: that (مفرد) · those (جمع)","ساكن+y → ies · f/fe → ves · s/sh/ch/x → es"],
+ex:[["These boxes are heavy.","هذه الصناديق ثقيلة."],["Those children are my nephews.","أولئك الأطفال أبناء أخي."],["This person is new.","هذا الشخص جديد."],["Brush your teeth.","نظّف أسنانك."]],
+m:[["two childrens","two children","children جمع أصلاً فلا نضيف s."],["This books are mine.","These books are mine.","مع الجمع نستخدم these."]],
+tip:"احفظ الجموع الشاذة كأزواج بصوت عالٍ: man-men, child-children… كررها حتى تصبح تلقائية.",
+q:[["mc","one baby, two ___",["babys","babies","babyes"],1,"ساكن + y ← ies."],
+["mc","one box, three ___",["boxs","boxes"],1,"بعد x نضيف es."],
+["mc","one child, many ___",["childs","childrens","children"],2,"جمع شاذ: children."],
+["mc","___ books here are mine.",["This","These","That"],1,"جمع وقريب (here) ← these."],
+["mc","Look at ___ star over there!",["this","that","these"],1,"مفرد وبعيد (over there) ← that."],
+["fill","one knife, two ___",["knives"],"fe ← ves."],
+["fill","one person, ten ___",["people","persons"],"الجمع الشائع people."],
+["ord","Those men are my colleagues.","أولئك الرجال زملائي.","those للجمع البعيد، و men جمع man."]]});
+
+L({id:"a1-5",lv:0,en:"Present simple",ar:"المضارع البسيط",
+goal:"تتكلم عن عاداتك والحقائق والجداول الثابتة.",
+r:["نستخدمه للعادات المتكررة، والحقائق العامة، والجداول: <span class=en>I work at night. · Water boils at 100°C.</span>",
+"مع <b>he / she / it</b> نضيف <span class=en>s</span> للفعل: <span class=en>she works</span>. وبعد s, sh, ch, x, o نضيف es: <span class=en>goes, watches</span>. ساكن+y ← ies: <span class=en>studies</span>.",
+"<b>النفي والسؤال</b> بالمساعد <span class=en>do / does</span>، وبعده الفعل <b>مجرّد بدون s</b>: <span class=en>She doesn't work. · Does she work?</span>",
+"ظروف التكرار (always, usually, often, sometimes, never) تأتي <b>قبل</b> الفعل الأساسي و<b>بعد</b> فعل be: <span class=en>I always drink tea. · He is always late.</span>"],
+f:["I/you/we/they + V","he/she/it + V-s","نفي: don't / doesn't + V","سؤال: Do / Does + فاعل + V ?"],
+ex:[["She goes to work by car.","تذهب إلى العمل بالسيارة."],["We don't work on Fridays.","لا نعمل يوم الجمعة."],["Does he speak English?","هل يتكلم الإنجليزية؟"],["I usually wake up at six.","عادةً أستيقظ في السادسة."]],
+m:[["He work here.","He works here.","نسيان s مع he/she/it أشهر خطأ على الإطلاق."],["She doesn't works.","She doesn't work.","بعد doesn't الفعل مجرّد، فالـ s انتقلت إلى does."]],
+tip:"تذكّر: الـ s تظهر مرة واحدة فقط — إما في الفعل (works) أو في المساعد (does)، ولا تظهر في الاثنين.",
+q:[["mc","She ___ to work by car.",["go","goes","going"],1,"she ← الفعل + es."],
+["mc","They ___ coffee in the morning.",["drinks","drink","drinking"],1,"they بدون s."],
+["mc","He ___ like fish.",["don't","doesn't","isn't"],1,"he ← doesn't."],
+["mc","___ your father work at the hospital?",["Do","Does","Is"],1,"your father = he ← Does."],
+["fill","Water ___ (boil) at 100 degrees.",["boils"],"حقيقة علمية + فاعل مفرد ← boils."],
+["fill","My brother ___ (study) every night.",["studies"],"ساكن + y ← ies."],
+["mc","اختر الجملة الصحيحة:",["She doesn't works on Fridays.","She doesn't work on Fridays.","She don't work on Fridays."],1,"doesn't + فعل مجرّد."],
+["ord","I always drink tea after lunch.","دائماً أشرب الشاي بعد الغداء.","always قبل الفعل الأساسي drink."]]});
+
+L({id:"a1-6",lv:0,en:"There is / There are",ar:"يوجد · وحروف المكان",
+goal:"تصف ما يوجد في مكان ما وأين يقع بالضبط.",
+r:["<span class=en>There is</span> + مفرد أو غير معدود، و <span class=en>There are</span> + جمع. وهي تعني (يوجد/هناك).",
+"النفي: <span class=en>There isn't / There aren't</span>، والسؤال: <span class=en>Is there…? / Are there…?</span> ومعها غالباً <span class=en>any</span>.",
+"حروف المكان: <span class=en>in</span> داخل، <span class=en>on</span> على سطح، <span class=en>under</span> تحت، <span class=en>next to</span> بجانب، <span class=en>between</span> بين، <span class=en>behind</span> خلف، <span class=en>in front of</span> أمام."],
+f:["There is + مفرد / غير معدود","There are + جمع","Is there…? · Are there any…?"],
+ex:[["There is a pharmacy near my house.","توجد صيدلية قرب بيتي."],["There are two patients in the room.","يوجد مريضان في الغرفة."],["Is there any milk?","هل يوجد حليب؟"],["The keys are on the table.","المفاتيح على الطاولة."]],
+m:[["It has a hospital in my city.","There is a hospital in my city.","ترجمة «فيه» حرفياً بـ It has خطأ شائع؛ الصحيح There is."],["There is many cars.","There are many cars.","الجمع يحتاج are."]],
+tip:"انظر إلى الاسم الذي بعدها مباشرة: مفرد ← is، جمع ← are.",
+q:[["mc","___ a pharmacy near my house.",["There is","There are","It has"],0,"pharmacy مفرد."],
+["mc","___ many cars in the street.",["There is","There are"],1,"cars جمع."],
+["mc","___ any milk in the fridge?",["Is there","Are there"],0,"milk غير معدود يُعامل كمفرد."],
+["mc","The keys are ___ the table.",["on","at","between"],0,"على سطح الطاولة ← on."],
+["mc","The cat is ___ the bed. (تحت)",["under","between","behind"],0,"تحت = under."],
+["fill","There ___ two patients in the waiting room.",["are"],"two patients جمع."],
+["fill","There ___ any chairs in the room. (نفي)",["aren't","are not"],"جمع منفي ← aren't."],
+["ord","Is there a hospital in your town?","هل يوجد مستشفى في مدينتك؟","السؤال: Is there + مفرد."]]});
+
+/* ================= A2 ================= */
+L({id:"a2-1",lv:1,en:"Present continuous",ar:"المضارع المستمر مقابل البسيط",
+goal:"تفرّق بين ما يحدث الآن وما يحدث عادةً.",
+r:["التكوين: <span class=en>am / is / are + V-ing</span>. نستخدمه لما يحدث <b>الآن</b> أو حالة <b>مؤقتة</b>: <span class=en>I'm working nights this week.</span>",
+"كلماته الدالة: <span class=en>now, right now, at the moment, Look!, Listen!, today, this week</span>.",
+"<b>أفعال الحالة</b> لا تأتي عادةً بالمستمر حتى لو كانت الآن: <span class=en>know, like, love, want, need, believe, understand, own</span>.",
+"إملاء ing: make ← making (حذف e)، run ← running (مضاعفة الحرف الأخير بعد ساكن-متحرك-ساكن)."],
+f:["am / is / are + V-ing","نفي: isn't / aren't + V-ing","سؤال: Is she…ing? · Are you…ing?","البسيط = عادة · المستمر = الآن/مؤقت"],
+ex:[["The baby is sleeping now.","الطفل نائم الآن."],["She usually drinks tea, but today she's drinking coffee.","عادةً تشرب الشاي، لكنها اليوم تشرب قهوة."],["What are you doing?","ماذا تفعل؟"],["I need help. (ليس I'm needing)","أحتاج مساعدة."]],
+m:[["I am knowing him.","I know him.","know فعل حالة لا يأتي بالمستمر."],["She working now.","She is working now.","لا تنسَ is/am/are قبل ing."]],
+tip:"اسأل: هل هو فعل يتحرك ويبدأ وينتهي (run, eat)؟ يقبل المستمر. هل هو حالة في الذهن أو الشعور (know, want)؟ يبقى بسيطاً.",
+q:[["mc","Be quiet! The baby ___.",["sleeps","is sleeping","sleep"],1,"يحدث الآن ← مستمر."],
+["mc","Look! It ___.",["rains","is raining"],1,"Look! دليل على الآن."],
+["mc","I ___ the answer.",["know","am knowing"],0,"know فعل حالة."],
+["mc","She usually ___ tea, but today she ___ coffee.",["drinks / is drinking","is drinking / drinks","drink / drinking"],0,"usually ← بسيط، today (مؤقت) ← مستمر."],
+["fill","They ___ (watch) TV right now.",["are watching","'re watching"],"right now ← are + ing."],
+["fill","He ___ (run) in the park at the moment.",["is running","'s running"],"run ← running بمضاعفة n."],
+["mc","اختر الجملة الصحيحة:",["I am wanting a coffee.","I want a coffee.","I wanting a coffee."],1,"want فعل حالة."],
+["ord","What are you doing now?","ماذا تفعل الآن؟","سؤال: What + are + you + doing."]]});
+
+L({id:"a2-2",lv:1,en:"Past simple",ar:"الماضي البسيط",
+goal:"تحكي ما حدث وانتهى في وقت محدد.",
+r:["الأفعال المنتظمة نضيف لها <span class=en>ed</span>: <span class=en>work → worked</span>، stop ← stopped، study ← studied.",
+"الأفعال الشاذة تُحفظ: <span class=en>go→went · see→saw · buy→bought · have→had · make→made · take→took · come→came</span>.",
+"فعل be في الماضي: <span class=en>was</span> مع I/he/she/it، و <span class=en>were</span> مع you/we/they.",
+"النفي والسؤال بـ <span class=en>did</span>، وبعده الفعل يعود <b>مجرّداً</b>: <span class=en>I didn't go. · Did you see?</span> وكلماته: yesterday, ago, last…, in 2010."],
+f:["V-ed أو التصريف الثاني","نفي: didn't + V مجرد","سؤال: Did + فاعل + V ?","was (مفرد) · were (جمع و you)"],
+ex:[["I visited my uncle yesterday.","زرت عمي أمس."],["She went to Jeddah last week.","ذهبت إلى جدة الأسبوع الماضي."],["We were at home.","كنا في البيت."],["Did you call him?","هل اتصلت به؟"]],
+m:[["I didn't went.","I didn't go.","did تحمل الماضي، فالفعل بعدها مجرّد."],["He goed home.","He went home.","go فعل شاذ."]],
+tip:"كل يوم احفظ 5 أفعال شاذة واكتب بها جملة عن يومك. خلال شهر تنتهي من أهمها.",
+q:[["mc","I ___ my uncle yesterday.",["visit","visited","visiting"],1,"yesterday ← ماضٍ."],
+["mc","She ___ to Jeddah last week.",["goed","went","gone"],1,"go ← went."],
+["mc","We ___ at home last night.",["was","were"],1,"we ← were."],
+["mc","Did you ___ the news?",["saw","see","seen"],1,"بعد did فعل مجرّد."],
+["mc","He ___ come to the meeting.",["didn't","doesn't","wasn't"],0,"نفي الماضي بـ didn't."],
+["fill","They ___ (buy) a new house two years ago.",["bought"],"buy ← bought."],
+["fill","The ambulance ___ (stop) outside.",["stopped"],"مضاعفة p ثم ed."],
+["ord","Where did you go yesterday?","أين ذهبت أمس؟","Where + did + you + go."]]});
+
+L({id:"a2-3",lv:1,en:"Countable & uncountable",ar:"المعدود وغير المعدود",
+goal:"تستخدم much و many و some و any بدقة.",
+r:["<b>المعدود</b> له مفرد وجمع: <span class=en>a book, two books</span>. <b>غير المعدود</b> لا يُجمع ولا يأخذ a/an: <span class=en>water, money, information, advice, news, furniture, luggage</span>.",
+"<span class=en>many</span> + جمع معدود، و <span class=en>much</span> + غير معدود (غالباً في النفي والسؤال). و <span class=en>a lot of</span> مع الاثنين.",
+"<span class=en>some</span> في الإثبات والعروض والطلبات، و <span class=en>any</span> في النفي والسؤال العام.",
+"<span class=en>a few</span> (قليل) مع المعدود، و <span class=en>a little</span> (قليل) مع غير المعدود."],
+f:["How many + جمع؟ · How much + غير معدود؟","some: إثبات/عرض · any: نفي/سؤال","a few + معدود · a little + غير معدود"],
+ex:[["How much money do you have?","كم معك من المال؟"],["I have a few friends here.","لدي بعض الأصدقاء هنا."],["Would you like some tea?","هل تريد بعض الشاي؟"],["There isn't any sugar.","لا يوجد سكر."]],
+m:[["Can you give me an advice?","Can you give me some advice?","advice غير معدودة في الإنجليزية رغم أنها معدودة في العربية."],["The news are good.","The news is good.","news مفردة رغم الـ s."]],
+tip:"الكلمات الخطرة للعرب: advice, information, news, furniture, luggage, homework — كلها غير معدودة.",
+q:[["mc","How ___ money do you have?",["many","much"],1,"money غير معدود."],
+["mc","How ___ brothers do you have?",["many","much"],0,"brothers جمع معدود."],
+["mc","There isn't ___ sugar.",["some","any"],1,"نفي ← any."],
+["mc","Would you like ___ tea?",["some","any"],0,"عرض ← some."],
+["mc","Can you give me some ___?",["advices","advice","an advice"],1,"advice غير معدودة."],
+["fill","I have a ___ friends in Riyadh. (قليل - معدود)",["few"],"friends معدود ← a few."],
+["fill","There is a ___ water in the bottle. (قليل - غير معدود)",["little"],"water غير معدود ← a little."],
+["mc","اختر الجملة الصحيحة:",["The news are good.","The news is good."],1,"news تُعامل كمفرد."]]});
+
+L({id:"a2-4",lv:1,en:"Comparatives & superlatives",ar:"المقارنة والتفضيل",
+goal:"تقارن بين شيئين وتختار الأفضل بين مجموعة.",
+r:["الصفة القصيرة (مقطع واحد): <span class=en>+er than</span> للمقارنة و <span class=en>the +est</span> للتفضيل: <span class=en>tall → taller → the tallest</span>.",
+"تنبيهات إملائية: big ← bigger (مضاعفة)، happy ← happier (y ← i).",
+"الصفة الطويلة (مقطعان فأكثر غالباً): <span class=en>more … than</span> و <span class=en>the most …</span>: <span class=en>more expensive, the most expensive</span>.",
+"الشواذ: <span class=en>good → better → the best · bad → worse → the worst · far → further → the furthest</span>. وللمساواة: <span class=en>as … as</span>."],
+f:["قصيرة: adj-er than · the adj-est","طويلة: more adj than · the most adj","مساواة: as adj as","good-better-best · bad-worse-worst"],
+ex:[["Riyadh is hotter than Abha.","الرياض أحر من أبها."],["This is the most interesting book.","هذا أكثر كتاب ممتع."],["My car is better than yours.","سيارتي أفضل من سيارتك."],["He is as tall as his father.","هو بطول أبيه."]],
+m:[["more better","better","لا نجمع more مع er."],["He is taller from me.","He is taller than me.","المقارنة بـ than وليس from (ترجمة «من»)."]],
+tip:"عدّ المقاطع: big (1) ← er. hap-py (2 وتنتهي بـ y) ← ier. ex-pen-sive (3) ← more.",
+q:[["mc","Riyadh is ___ than Abha in summer.",["hot","hotter","hottest"],1,"مقارنة بين اثنين ← hotter."],
+["mc","This is the ___ book I have read.",["interesting","more interesting","most interesting"],2,"the + most للتفضيل."],
+["mc","My car is ___ than yours.",["gooder","better","best"],1,"good ← better."],
+["mc","She is ___ than her sister.",["more happy","happier"],1,"happy ← happier."],
+["mc","He is as tall ___ his father.",["than","as","like"],1,"المساواة as … as."],
+["fill","Today is ___ (bad) day of my life.",["the worst"],"تفضيل bad ← the worst."],
+["fill","This exam was ___ (difficult) than the last one.",["more difficult"],"صفة طويلة ← more."],
+["ord","Mount Everest is the highest mountain in the world.","جبل إيفرست أعلى جبل في العالم.","the highest تفضيل."]]});
+
+L({id:"a2-5",lv:1,en:"Future: will vs going to",ar:"المستقبل will و going to",
+goal:"تختار الصيغة المناسبة حسب نوع الحدث المستقبلي.",
+r:["<span class=en>will + V</span>: قرار لحظي، وعد، عرض مساعدة، أو توقع رأي شخصي: <span class=en>I'll answer it. · I think he'll win.</span>",
+"<span class=en>be going to + V</span>: خطة مقررة مسبقاً، أو توقع مبني على دليل أمامك: <span class=en>Look at the clouds! It's going to rain.</span>",
+"المضارع المستمر يُستخدم أيضاً للمواعيد المرتّبة: <span class=en>I'm meeting him at 5.</span>"],
+f:["will / won't + V مجرد","am / is / are going to + V","قرار الآن → will · خطة سابقة → going to"],
+ex:[["The phone is ringing. I'll get it.","الهاتف يرن، سأرد."],["I'm going to study medicine next year.","سأدرس الطب العام القادم (خطة)."],["I promise I won't be late.","أعدك ألا أتأخر."],["Watch out! You're going to fall.","انتبه! ستسقط."]],
+m:[["I will to go.","I will go.","لا to بعد will."],["Tomorrow I go to Riyadh. (خطة)","Tomorrow I'm going to Riyadh.","المستقبل لا يُعبَّر عنه بالمضارع البسيط إلا للجداول."]],
+tip:"هل قررت قبل الكلام؟ going to. هل تقرر الآن وأنت تتكلم؟ will.",
+q:[["mc","The phone is ringing. I ___ answer it.",["will","am going to"],0,"قرار لحظي."],
+["mc","Look at those clouds! It ___ rain.",["will","is going to"],1,"توقع مع دليل."],
+["mc","I ___ study medicine next year. I have already applied.",["will","am going to"],1,"خطة مسبقة."],
+["mc","I promise I ___ tell anyone.",["won't","am not going to"],0,"الوعد بـ will."],
+["mc","___ you help me, please?",["Will","Are"],0,"طلب ← Will you…?"],
+["fill","We ___ travel to Dubai next month. (going to)",["are going to","'re going to"],"we ← are going to."],
+["fill","I think he ___ (win) the match.",["will win","'ll win"],"توقع رأي بـ I think ← will."],
+["ord","What are you going to do tomorrow?","ماذا ستفعل غداً؟","سؤال عن خطة."]]});
+
+L({id:"a2-6",lv:1,en:"Prepositions in / on / at",ar:"حروف الجر للزمان والمكان",
+goal:"تتقن أكثر ثلاث كلمات يخطئ فيها المتعلمون.",
+r:["<b>الزمان:</b> <span class=en>at</span> للساعة واللحظة (at 5 o'clock, at night, at noon)، <span class=en>on</span> للأيام والتواريخ (on Monday, on 5 May)، <span class=en>in</span> للفترات الطويلة (in May, in 2020, in summer, in the morning).",
+"<b>المكان:</b> <span class=en>at</span> لنقطة محددة (at the door, at the bus stop)، <span class=en>on</span> لسطح (on the wall)، <span class=en>in</span> لمكان مغلق أو مدينة/دولة (in the room, in Riyadh).",
+"قاعدة الهرم: من الأضيق للأوسع ← at ثم on ثم in."],
+f:["at → ساعة / نقطة","on → يوم / تاريخ / سطح","in → شهر / سنة / فصل / داخل / مدينة","استثناء: at night · in the morning"],
+ex:[["The meeting is at 9 o'clock.","الاجتماع الساعة 9."],["I was born in 1995.","ولدت عام 1995."],["See you on Monday.","أراك يوم الاثنين."],["She is waiting at the bus stop.","تنتظر في موقف الحافلة."]],
+m:[["in Monday","on Monday","الأيام دائماً مع on."],["at the morning","in the morning","أجزاء اليوم مع in، عدا at night."]],
+tip:"تخيّل هرماً: قمته at (نقطة صغيرة)، وسطه on، وقاعدته الواسعة in.",
+q:[["mc","The meeting is ___ 9 o'clock.",["in","on","at"],2,"ساعة ← at."],
+["mc","I was born ___ 1995.",["in","on","at"],0,"سنة ← in."],
+["mc","We have class ___ Monday.",["in","on","at"],1,"يوم ← on."],
+["mc","She lives ___ Riyadh.",["in","at","on"],0,"مدينة ← in."],
+["mc","I'll see you ___ the morning.",["in","on","at"],0,"in the morning."],
+["fill","My birthday is ___ 5 May.",["on"],"تاريخ ← on."],
+["fill","I can't sleep ___ night.",["at"],"at night استثناء."],
+["mc","He is waiting ___ the bus stop.",["in","at","on"],1,"نقطة محددة ← at."]]});
+
+L({id:"a2-7",lv:1,en:"Basic modals",ar:"الأفعال الناقصة can · must · should",
+goal:"تعبّر عن القدرة والإلزام والنصيحة والإذن.",
+r:["<span class=en>can</span> قدرة أو إذن، و <span class=en>could</span> قدرة في الماضي أو طلب مهذب.",
+"<span class=en>must</span> إلزام قوي (غالباً من المتكلم)، و <span class=en>have to</span> إلزام خارجي (قانون، عمل).",
+"⚠️ <span class=en>mustn't</span> = ممنوع، بينما <span class=en>don't have to</span> = غير ضروري (لك الخيار).",
+"<span class=en>should</span> للنصيحة. القاعدة الذهبية: بعد الفعل الناقص <b>فعل مجرد</b> بدون to وبدون s."],
+f:["modal + V مجرد (بدون to / s)","mustn't = ممنوع","don't have to = ليس ضرورياً","should = يُستحسن (نصيحة)"],
+ex:[["She can speak three languages.","تستطيع التحدث بثلاث لغات."],["You mustn't smoke here.","ممنوع التدخين هنا."],["I don't have to work tomorrow.","لست مضطراً للعمل غداً."],["You should rest.","يجب أن ترتاح (نصيحة)."]],
+m:[["He must to go.","He must go.","لا to بعد must."],["She cans swim.","She can swim.","الأفعال الناقصة لا تأخذ s."]],
+tip:"فرّق بالترجمة: mustn't = لا يجوز، don't have to = لا يلزم.",
+q:[["mc","She ___ speak three languages.",["can","cans","can to"],0,"can + فعل مجرد."],
+["mc","You ___ smoke in the hospital. It's forbidden.",["mustn't","don't have to"],0,"ممنوع ← mustn't."],
+["mc","Tomorrow is a holiday, so I ___ go to work.",["mustn't","don't have to"],1,"غير ضروري ← don't have to."],
+["mc","You look tired. You ___ rest.",["should","can't","mustn't"],0,"نصيحة ← should."],
+["mc","When I was five, I ___ swim.",["can","could","must"],1,"قدرة في الماضي ← could."],
+["mc","اختر الجملة الصحيحة:",["He musts go.","He must to go.","He must go."],2,"must + فعل مجرد."],
+["fill","___ I open the window? (طلب مهذب)",["could","can","may"],"طلب إذن ← Could / Can / May."],
+["ord","You should see a doctor.","ينبغي أن تراجع طبيباً.","should + see مجرد."]]});
+/* ================= B1 ================= */
+L({id:"b1-1",lv:2,en:"Present perfect",ar:"المضارع التام",
+goal:"تربط الماضي بالحاضر: خبرات، نتائج، وأمور لم تنتهِ.",
+r:["التكوين: <span class=en>have / has + التصريف الثالث (V3)</span>: <span class=en>I have finished · She has gone</span>.",
+"<b>استخداماته:</b> (1) خبرة في الحياة بدون وقت محدد: <span class=en>I've been to London.</span> (2) حدث قريب نتيجته ظاهرة الآن: <span class=en>I've lost my keys.</span> (3) شيء بدأ في الماضي ومستمر: <span class=en>I've lived here for 5 years.</span>",
+"كلماته: <span class=en>ever, never, just, already, yet, so far, recently</span>. و <span class=en>yet</span> في النفي والسؤال آخر الجملة، و <span class=en>already/just</span> بين have والفعل.",
+"<span class=en>for</span> + مدة (for 3 years)، و <span class=en>since</span> + نقطة بداية (since 2015)."],
+f:["have / has + V3","Have you ever + V3 …?","for + مدة · since + نقطة بداية","just / already (وسط) · yet (آخر)"],
+ex:[["I have never been to Japan.","لم أزر اليابان قط."],["She has just finished her shift.","أنهت مناوبتها للتو."],["Have you finished yet?","هل انتهيت بعد؟"],["We've worked here since 2015.","نعمل هنا منذ 2015."]],
+m:[["I have went.","I have gone.","بعد have نستخدم V3 وليس V2."],["I live here since 2015.","I have lived here since 2015.","since مع ما هو مستمر يحتاج المضارع التام."]],
+tip:"احفظ الأفعال الشاذة ثلاثية: go-went-gone, see-saw-seen, write-wrote-written. العمود الثالث هو مفتاح الأزمنة التامة.",
+q:[["mc","I ___ never ___ to Japan.",["have / been","has / been","have / went"],0,"I ← have + V3 (been)."],
+["mc","She ___ just ___ her homework.",["has / finished","have / finished","has / finish"],0,"she ← has + V3."],
+["mc","Have you finished ___?",["already","yet","ago"],1,"yet في السؤال آخر الجملة."],
+["mc","I have lived here ___ 2015.",["for","since"],1,"2015 نقطة بداية ← since."],
+["mc","They have worked here ___ ten years.",["for","since"],0,"ten years مدة ← for."],
+["fill","He has ___ (write) three books.",["written"],"write-wrote-written."],
+["fill","___ you ever eaten sushi?",["have"],"سؤال الخبرة: Have you ever…?"],
+["ord","Have you ever been to London?","هل سبق لك أن زرت لندن؟","Have + you + ever + V3."]]});
+
+L({id:"b1-2",lv:2,en:"Present perfect vs past simple",ar:"المضارع التام أم الماضي البسيط؟",
+goal:"تحسم الاختيار بينهما بقاعدة الوقت.",
+r:["<b>القاعدة الحاسمة:</b> إذا ذُكر وقت <b>منتهٍ</b> (yesterday, last week, in 2010, two days ago, when…?) ← الماضي البسيط.",
+"إذا لم يُذكر وقت، أو كان الوقت <b>لم ينتهِ</b> (today, this week, ever, so far, since) ← المضارع التام.",
+"إذا كان الشخص متوفى أو الحدث انتهى عهده: <span class=en>Shakespeare wrote many plays.</span> (وليس has written)."],
+f:["وقت منتهٍ → V2 (past simple)","بدون وقت / وقت مستمر → have + V3","When…? دائماً مع الماضي البسيط"],
+ex:[["I saw him yesterday.","رأيته أمس."],["I've seen him three times this week.","رأيته ثلاث مرات هذا الأسبوع."],["When did you arrive?","متى وصلت؟"],["She has lived in Dammam since 2019.","تعيش في الدمام منذ 2019."]],
+m:[["I have finished it two days ago.","I finished it two days ago.","ago تعني وقتاً منتهياً ← ماضٍ بسيط."],["When have you arrived?","When did you arrive?","When تسأل عن وقت محدد ← ماضٍ."]],
+tip:"ابحث عن كلمة الوقت أولاً قبل أن تفكر في أي شيء آخر — هي التي تقرر.",
+q:[["mc","I ___ him yesterday.",["have seen","saw"],1,"yesterday وقت منتهٍ."],
+["mc","I ___ him three times this week.",["have seen","saw"],0,"this week لم ينتهِ."],
+["mc","When ___ you arrive?",["have","did"],1,"When ← ماضٍ بسيط."],
+["mc","She ___ in Dammam since 2019.",["lived","has lived"],1,"since ← مضارع تام."],
+["mc","He ___ his leg in 2018.",["has broken","broke"],1,"in 2018 وقت منتهٍ."],
+["mc","اختر الجملة الصحيحة:",["I have finished it two days ago.","I finished it two days ago."],1,"ago ← ماضٍ بسيط."],
+["fill","Oh no! I ___ (lose) my keys. I can't find them.",["have lost","'ve lost"],"نتيجة ظاهرة الآن."],
+["fill","Shakespeare ___ (write) many plays.",["wrote"],"حياته انتهت ← ماضٍ بسيط."]]});
+
+L({id:"b1-3",lv:2,en:"Past continuous",ar:"الماضي المستمر",
+goal:"تصف خلفية الأحداث في القصص وما كان يحدث لحظة وقوع حدث آخر.",
+r:["التكوين: <span class=en>was / were + V-ing</span>. يصف حدثاً <b>كان مستمراً</b> في لحظة معينة في الماضي: <span class=en>At 8 pm I was having dinner.</span>",
+"مع الماضي البسيط: الحدث الطويل (مستمر) قطعه حدث قصير (بسيط): <span class=en>I was driving when the phone rang.</span>",
+"مع <span class=en>while</span> لحدثين طويلين في نفس الوقت: <span class=en>While she was studying, he was cooking.</span>"],
+f:["was / were + V-ing","حدث طويل (was …ing) + when + حدث قصير (V2)","while + was/were …ing"],
+ex:[["It was raining when we left.","كانت تمطر عندما غادرنا."],["What were you doing at 10?","ماذا كنت تفعل الساعة 10؟"],["The patient was sleeping when the nurse came.","كان المريض نائماً عندما جاءت الممرضة."],["While I was reading, the lights went out.","بينما كنت أقرأ انقطعت الكهرباء."]],
+m:[["When I was arriving, they ate.","When I arrived, they were eating.","الحدث القصير (الوصول) بسيط، والطويل (الأكل) مستمر."],["They was playing.","They were playing.","they ← were."]],
+tip:"تخيّل مشهداً سينمائياً: الخلفية المستمرة (was …ing) ثم فجأة حدث (V2).",
+q:[["mc","At 8 pm yesterday, I ___ dinner.",["had","was having","have had"],1,"لحظة محددة في الماضي ← مستمر."],
+["mc","I was driving when the phone ___.",["rang","was ringing"],0,"الحدث القصير المقاطِع ← بسيط."],
+["mc","While she ___, he was cooking.",["studied","was studying"],1,"while لحدثين مستمرين."],
+["mc","They ___ playing football.",["was","were"],1,"they ← were."],
+["fill","What ___ you doing at 10 last night?",["were"],"you ← were."],
+["fill","The patient ___ (sleep) when the nurse came.",["was sleeping"],"الحدث المستمر ← was + ing."],
+["mc","اختر الجملة الصحيحة:",["When I arrived, they were eating.","When I was arriving, they ate."],0,"الوصول قصير، الأكل مستمر."],
+["ord","It was raining when we left the house.","كانت تمطر عندما غادرنا البيت.","خلفية مستمرة + when + حدث قصير."]]});
+
+L({id:"b1-4",lv:2,en:"Zero & first conditional",ar:"الشرط الصفري والأول",
+goal:"تتكلم عن الحقائق والاحتمالات الحقيقية في المستقبل.",
+r:["<b>الصفري</b> (حقائق دائمة): <span class=en>If + present, present</span>: <span class=en>If you heat ice, it melts.</span>",
+"<b>الأول</b> (احتمال حقيقي في المستقبل): <span class=en>If + present, will + V</span>: <span class=en>If it rains, we'll stay home.</span>",
+"⚠️ <b>لا نستخدم will بعد if</b> حتى لو كان المعنى مستقبلاً.",
+"<span class=en>unless</span> = if not: <span class=en>I won't go unless you come.</span> ويمكن تقديم جملة الجواب وحذف الفاصلة."],
+f:["Zero: If + V(present), V(present)","First: If + V(present), will + V","unless = if … not"],
+ex:[["If you press this button, the machine stops.","إذا ضغطت الزر يتوقف الجهاز."],["If she calls, I'll tell her.","إذا اتصلت سأخبرها."],["You'll miss the bus if you don't hurry.","ستفوتك الحافلة إن لم تسرع."],["Unless you study, you'll fail.","ما لم تذاكر سترسب."]],
+m:[["If I will see him, I'll tell him.","If I see him, I'll tell him.","لا will بعد if."],["Unless you don't come…","Unless you come…","unless تحمل النفي بنفسها."]],
+tip:"قاعدة الجيب: if تأخذ الحاضر، والجواب يأخذ will.",
+q:[["mc","If you heat ice, it ___.",["melts","melted","melting"],0,"حقيقة ← شرط صفري."],
+["mc","If it ___ tomorrow, we will stay home.",["rains","will rain"],0,"لا will بعد if."],
+["mc","If you study, you ___ pass.",["would","will"],1,"شرط أول ← will."],
+["mc","I won't go ___ you come with me.",["if","unless"],1,"unless = إلا إذا."],
+["fill","If she ___ (call), I will tell her.",["calls"],"she ← calls."],
+["fill","If you don't hurry, you ___ (miss) the bus.",["will miss","'ll miss"],"الجواب ← will + V."],
+["mc","اختر الجملة الصحيحة:",["If I will see him, I will tell him.","If I see him, I will tell him."],1,"if + مضارع."],
+["ord","If you press this button, the machine stops.","إذا ضغطت هذا الزر يتوقف الجهاز.","شرط صفري."]]});
+
+L({id:"b1-5",lv:2,en:"Gerund vs infinitive",ar:"المصدر ing أم to + فعل",
+goal:"تعرف أي صيغة تأتي بعد الأفعال الشائعة.",
+r:["<b>V-ing</b> بعد: <span class=en>enjoy, avoid, finish, mind, suggest, keep, miss, practise, can't stand</span> — وبعد <b>أي حرف جر</b> (good at, interested in, before, after) — وكفاعل في أول الجملة: <span class=en>Swimming is fun.</span>",
+"<b>to + V</b> بعد: <span class=en>want, decide, hope, plan, need, agree, promise, refuse, would like, learn</span> — وللتعبير عن الغرض: <span class=en>I went out to buy bread.</span>",
+"أفعال يتغير معناها: <span class=en>stop smoking</span> (أقلع) ≠ <span class=en>stop to smoke</span> (توقف لكي يدخن). <span class=en>remember to lock</span> (تذكّر أن تفعل) ≠ <span class=en>remember locking</span> (تتذكر أنك فعلت)."],
+f:["enjoy / avoid / finish / mind + V-ing","حرف جر + V-ing","want / decide / hope / plan + to V","الغرض: to V"],
+ex:[["I enjoy reading.","أستمتع بالقراءة."],["She decided to study abroad.","قررت أن تدرس في الخارج."],["He is good at swimming.","هو جيد في السباحة."],["Remember to lock the door.","تذكّر أن تقفل الباب."]],
+m:[["I'm interested in to learn.","I'm interested in learning.","بعد حرف الجر in ← ing."],["I went to buying medicine.","I went to buy medicine.","الغرض ← to + V."]],
+tip:"اصنع بطاقتين: بطاقة ing وبطاقة to، وكلما قابلت فعلاً جديداً ضعه في بطاقته.",
+q:[["mc","I enjoy ___ books.",["to read","reading"],1,"enjoy + ing."],
+["mc","She decided ___ abroad.",["studying","to study"],1,"decide + to V."],
+["mc","He is good at ___.",["swim","to swim","swimming"],2,"بعد حرف جر ← ing."],
+["mc","I went to the pharmacy ___ medicine.",["to buy","buying"],0,"الغرض ← to V."],
+["mc","He stopped ___. (أقلع عن التدخين)",["smoking","to smoke"],0,"stop + ing = ترك العادة."],
+["mc","Remember ___ the door when you leave.",["locking","to lock"],1,"تذكّر أن تفعل لاحقاً ← to."],
+["fill","Would you mind ___ (open) the window?",["opening"],"mind + ing."],
+["fill","We hope ___ (see) you soon.",["to see"],"hope + to V."]]});
+
+L({id:"b1-6",lv:2,en:"Relative clauses",ar:"الجمل الموصولة who / which / that",
+goal:"تربط جملتين بجملة واحدة طويلة ومتقنة.",
+r:["<span class=en>who</span> للعاقل، <span class=en>which</span> لغير العاقل، <span class=en>that</span> للاثنين (في الجمل المحدِّدة)، <span class=en>where</span> للمكان، <span class=en>whose</span> للملكية.",
+"⚠️ ضمير الوصل يحل محل الضمير، فلا نكرره: <span class=en>The man who called me</span> وليس who he called me.",
+"إذا كان الضمير <b>مفعولاً</b> يمكن حذفه: <span class=en>The book (that) I bought.</span>",
+"الجملة غير المحدِّدة (معلومة إضافية) توضع بين فاصلتين ولا نستخدم فيها that: <span class=en>Riyadh, which is the capital, is huge.</span>"],
+f:["who → شخص · which → شيء · that → الاثنان","where → مكان · whose → ملكية","معلومة إضافية: , which … , (لا that)"],
+ex:[["The doctor who treated me was kind.","الطبيب الذي عالجني كان لطيفاً."],["This is the hospital where I was born.","هذا المستشفى الذي ولدت فيه."],["That's the man whose car was stolen.","ذاك الرجل الذي سُرقت سيارته."],["The phone (that) I bought is broken.","الهاتف الذي اشتريته معطل."]],
+m:[["The man who he called me…","The man who called me…","who تغني عن he."],["The hospital which I work in it.","The hospital where I work.","لا تكرر الضمير it."]],
+tip:"العربية تكرر الضمير (الذي اشتريته)، والإنجليزية لا: الذي اشتريت ← that I bought.",
+q:[["mc","The doctor ___ treated me was kind.",["which","who","where"],1,"شخص ← who."],
+["mc","This is the hospital ___ I was born.",["which","where","who"],1,"مكان ← where."],
+["mc","The book ___ I bought is great.",["who","which","where"],1,"شيء ← which."],
+["mc","That's the man ___ car was stolen.",["who","whose","which"],1,"ملكية ← whose."],
+["mc","Riyadh, ___ is the capital, is very big.",["that","which"],1,"بين فاصلتين لا نستخدم that."],
+["mc","اختر الجملة الصحيحة:",["The man who he called me is my uncle.","The man who called me is my uncle."],1,"لا نكرر الضمير."],
+["fill","I have a friend ___ lives in Canada.",["who","that"],"شخص ← who / that."],
+["ord","The phone that I bought yesterday is broken.","الهاتف الذي اشتريته أمس معطل.","that I bought بدون تكرار it."]]});
+
+L({id:"b1-7",lv:2,en:"used to / be used to",ar:"العادات الماضية والتعوّد",
+goal:"تفرّق بين «كنت أفعل» و«معتاد على» و«أتعوّد على».",
+r:["<span class=en>used to + V</span> لعادة أو حالة في الماضي <b>انتهت</b>: <span class=en>I used to smoke.</span> (كنت أدخن، والآن لا).",
+"النفي والسؤال بـ did، وتسقط الـ d من used: <span class=en>I didn't use to… · Did you use to…?</span>",
+"<span class=en>be used to + V-ing / اسم</span> = معتاد على (حالة الآن): <span class=en>I'm used to working nights.</span> و <span class=en>get used to + V-ing</span> = أتعوّد تدريجياً.",
+"⚠️ في be/get used to تكون to <b>حرف جر</b>، لذلك يأتي بعدها ing وليس الفعل المجرد."],
+f:["used to + V (ماضٍ انتهى)","didn't use to + V · Did … use to + V?","be used to + V-ing / noun (معتاد)","get used to + V-ing (يتعوّد)"],
+ex:[["I used to smoke, but I quit.","كنت أدخن لكني أقلعت."],["She didn't use to like coffee.","لم تكن تحب القهوة."],["I'm used to working nights.","أنا معتاد على العمل ليلاً."],["You'll get used to the noise.","ستتعود على الضجيج."]],
+m:[["I am used to wake up early.","I am used to waking up early.","بعد be used to يأتي ing."],["I didn't used to…","I didn't use to…","بعد did تسقط الـ d."],["I use to play football. (الآن)","I usually play football.","للعادة الحالية نستخدم المضارع البسيط مع usually."]],
+tip:"انظر قبل used: إذا وُجد be أو get ← بعدها ing. إذا لم يوجد ← فعل مجرد ومعناه الماضي.",
+q:[["mc","I ___ play football when I was a child.",["use to","used to","am used to"],1,"عادة ماضية انتهت ← used to + V."],
+["mc","She ___ like vegetables, but now she loves them.",["didn't use to","didn't used to","wasn't used to"],0,"نفي: didn't use to."],
+["mc","I'm used to ___ early.",["wake up","waking up","woke up"],1,"be used to + ing."],
+["mc","It took me months to get used to ___ on the left.",["drive","driving"],1,"get used to + ing."],
+["mc","___ you use to live in Jeddah?",["Did","Do","Were"],0,"السؤال: Did you use to…?"],
+["fill","Paramedics are used to ___ (work) long shifts.",["working"],"be used to + ing."],
+["mc","اختر الجملة الصحيحة:",["I used to living in Dammam.","I used to live in Dammam."],1,"used to (بدون be) + فعل مجرد."],
+["ord","We used to visit our grandparents every Friday.","كنا نزور أجدادنا كل جمعة.","used to + visit."]]});
+
+/* ================= B2 ================= */
+L({id:"b2-1",lv:3,en:"Present perfect continuous",ar:"المضارع التام المستمر",
+goal:"تؤكد على مدة نشاط مستمر حتى الآن.",
+r:["التكوين: <span class=en>have / has been + V-ing</span>. يُركّز على <b>المدة والاستمرار</b>: <span class=en>I've been waiting for two hours.</span>",
+"يُستخدم لنشاط انتهى للتو وأثره ظاهر: <span class=en>Your eyes are red. Have you been crying?</span>",
+"الفرق: المستمر يركّز على النشاط، والتام البسيط يركّز على <b>النتيجة أو العدد</b>: <span class=en>She has written three reports.</span> (وليس has been writing three)",
+"أفعال الحالة (know, like…) تبقى في التام البسيط: <span class=en>I've known him for years.</span>"],
+f:["have / has been + V-ing","How long have you been …ing?","عدد / نتيجة → have + V3","مدة / نشاط → have been + ing"],
+ex:[["I've been waiting for two hours.","أنتظر منذ ساعتين."],["How long have you been working here?","منذ متى وأنت تعمل هنا؟"],["It has been raining all day.","تمطر طوال اليوم."],["She's written three reports today.","كتبت ثلاثة تقارير اليوم."]],
+m:[["I am waiting since 8.","I have been waiting since 8.","«أنتظر منذ» لا تُترجم بالمضارع المستمر."],["I've been knowing him.","I've known him.","know فعل حالة."]],
+tip:"إذا سألت «منذ متى؟» عن نشاط ← How long have you been …ing?",
+q:[["mc","I ___ for two hours.",["have been waiting","am waiting","waited"],0,"مدة مستمرة حتى الآن."],
+["mc","Your eyes are red. ___ you ___ crying?",["Have / been","Did / be","Are / been"],0,"أثر نشاط حديث."],
+["mc","She ___ three reports today.",["has been writing","has written"],1,"عدد ← تام بسيط."],
+["mc","How long ___ you been learning English?",["have","has","did"],0,"you ← have."],
+["fill","They ___ (work) here since March.",["have been working","have worked","'ve been working","'ve worked"],"كلاهما صحيح مع work."],
+["fill","It ___ (rain) all day.",["has been raining","'s been raining"],"مدة مستمرة ← has been + ing."],
+["mc","اختر الجملة الصحيحة:",["I've been knowing him for years.","I've known him for years."],1,"know لا يأتي بالمستمر."],
+["ord","How long have you been working here?","منذ متى وأنت تعمل هنا؟","How long + have + you + been + ing."]]});
+
+L({id:"b2-2",lv:3,en:"Past perfect",ar:"الماضي التام",
+goal:"توضح أي حدث وقع أولاً عند الحديث عن حدثين ماضيين.",
+r:["التكوين: <span class=en>had + V3</span> لجميع الضمائر. يعبّر عن «ماضي الماضي»: حدث وقع <b>قبل</b> حدث ماضٍ آخر.",
+"<span class=en>When I arrived, the train had left.</span> ← القطار غادر أولاً ثم وصلت.",
+"كلماته: <span class=en>by the time, before, after, already, never … before</span>.",
+"لا نستخدمه لحدث واحد منفرد: <span class=en>I went to Jeddah yesterday.</span> (وليس had gone)."],
+f:["had + V3","حدث أقدم (had V3) + حدث أحدث (V2)","by the time + V2, had + V3"],
+ex:[["When I arrived, the train had left.","عندما وصلت كان القطار قد غادر."],["She said she had seen the film.","قالت إنها شاهدت الفيلم."],["I had never seen snow before.","لم أكن قد رأيت الثلج من قبل."],["After they had finished, they left.","بعد أن انتهوا غادروا."]],
+m:[["I had gone to Jeddah yesterday.","I went to Jeddah yesterday.","حدث واحد ← ماضٍ بسيط."],["When I arrived, the train left. (غادر قبل)","…the train had left.","بدون had يُفهم أنه غادر لحظة وصولك."]],
+tip:"ارسم خطاً زمنياً: الحدث الأبعد إلى اليسار يأخذ had.",
+q:[["mc","When I arrived, the train ___.",["left","had left","has left"],1,"غادر قبل وصولي."],
+["mc","She told me she ___ the film before.",["saw","had seen","has seen"],1,"قبل وقت الكلام في الماضي."],
+["mc","By the time the ambulance came, the patient ___ up.",["woke","had woken"],1,"by the time ← had + V3."],
+["mc","I ___ never ___ snow before I visited Canada.",["had / seen","have / seen","did / see"],0,"قبل الزيارة الماضية."],
+["fill","After they ___ (finish) dinner, they went out.",["had finished","'d finished"],"الحدث الأول ← had + V3."],
+["fill","He was tired because he ___ (not sleep).",["hadn't slept","had not slept"],"سبب سابق ← hadn't + V3."],
+["mc","اختر الجملة الصحيحة:",["I had gone to Jeddah yesterday.","I went to Jeddah yesterday."],1,"حدث واحد ← ماضٍ بسيط."],
+["ord","The film had started before we arrived.","كان الفيلم قد بدأ قبل أن نصل.","had started أقدم من arrived."]]});
+
+L({id:"b2-3",lv:3,en:"Second conditional",ar:"الشرط الثاني (غير الواقعي)",
+goal:"تتخيل مواقف غير حقيقية وتقدّم نصائح بأسلوب راقٍ.",
+r:["التكوين: <span class=en>If + past simple, would + V</span>. للحاضر أو المستقبل <b>غير الواقعي أو المستبعد</b>: <span class=en>If I were rich, I would travel.</span>",
+"الماضي هنا لا يعني زمناً ماضياً، بل يعني «بُعداً عن الواقع».",
+"مع be نستخدم <span class=en>were</span> لجميع الضمائر في الأسلوب الرسمي: <span class=en>If I were you…</span> (للنصيحة).",
+"لا نستخدم would بعد if."],
+f:["If + V2, would + V","If I were you, I'd …","مقارنة: First = محتمل · Second = خيالي"],
+ex:[["If I won the lottery, I'd buy a house.","لو ربحت اليانصيب لاشتريت بيتاً."],["If I were you, I'd accept the offer.","لو كنت مكانك لقبلت العرض."],["What would you do if you lost your job?","ماذا ستفعل لو فقدت عملك؟"],["She would help if she had time.","كانت ستساعد لو لديها وقت."]],
+m:[["If I would know, I'd tell you.","If I knew, I'd tell you.","لا would بعد if."],["If I am you…","If I were you…","العبارة الثابتة للنصيحة."]],
+tip:"اسأل: هل هذا ممكن فعلاً؟ نعم ← if + present (أول). مستبعد/خيالي ← if + past (ثانٍ).",
+q:[["mc","If I ___ rich, I would travel the world.",["am","were","will be"],1,"خيالي ← were."],
+["mc","If she had time, she ___ help you.",["will","would"],1,"جواب الشرط الثاني ← would."],
+["mc","If I ___ you, I would accept the offer.",["was being","were","am"],1,"If I were you."],
+["mc","What would you do if you ___ the lottery?",["win","won","will win"],1,"if + V2."],
+["fill","If we lived near the sea, we ___ (swim) every day.",["would swim","'d swim"],"would + V."],
+["fill","He would pass if he ___ (study) harder.",["studied"],"if + V2."],
+["mc","اختر الجملة الصحيحة:",["If I would know, I would tell you.","If I knew, I would tell you."],1,"لا would بعد if."],
+["ord","What would you do if you were me?","ماذا كنت ستفعل لو كنت مكاني؟","would + V ثم if + were."]]});
+
+L({id:"b2-4",lv:3,en:"Passive voice",ar:"المبني للمجهول",
+goal:"تكتب بأسلوب رسمي وعلمي يركّز على الحدث لا الفاعل.",
+r:["التكوين: <span class=en>be (بزمن الجملة) + V3</span>. المفعول يصبح فاعلاً، والفاعل الأصلي يُذكر بـ <span class=en>by</span> إن كان مهماً.",
+"نستخدمه عندما يكون الفاعل مجهولاً أو غير مهم أو واضحاً، وهو شائع جداً في التقارير الطبية والعلمية.",
+"الفعل be هو الذي يحمل الزمن، والفعل الأساسي دائماً V3.",
+"الأفعال اللازمة (happen, arrive, die) لا تُبنى للمجهول."],
+f:["Present: is / are + V3","Past: was / were + V3","Perfect: has / have been + V3","Future/Modal: will / must be + V3","Continuous: is being + V3"],
+ex:[["English is spoken all over the world.","تُتحدَّث الإنجليزية في كل العالم."],["The hospital was built in 1990.","بُني المستشفى عام 1990."],["The patient is being examined.","يتم فحص المريض الآن."],["This medicine must be kept in the fridge.","يجب حفظ هذا الدواء في الثلاجة."]],
+m:[["The accident was happened.","The accident happened.","happen فعل لازم."],["The car stolen.","The car was stolen.","لا تنسَ be."]],
+tip:"حوّل خطوة بخطوة: حدد زمن الجملة الأصلية ← ضع be بنفس الزمن ← أضف V3.",
+q:[["mc","English ___ all over the world.",["speaks","is spoken","is speaking"],1,"مجهول مضارع ← is + V3."],
+["mc","The hospital ___ in 1990.",["built","was built","is built"],1,"ماضٍ مجهول."],
+["mc","The results ___ tomorrow.",["will announce","will be announced"],1,"مستقبل مجهول."],
+["mc","The patient ___ by the doctor now.",["is examining","is being examined"],1,"مستمر مجهول ← is being + V3."],
+["mc","The letters have ___ sent.",["been","being","be"],0,"تام مجهول ← have been + V3."],
+["fill","My car ___ (steal) last night.",["was stolen"],"ماضٍ مجهول."],
+["fill","This medicine must ___ (keep) in the fridge.",["be kept"],"modal + be + V3."],
+["ord","The report was written by the manager.","كُتب التقرير من قِبل المدير.","was + V3 + by."]]});
+
+L({id:"b2-5",lv:3,en:"Reported speech",ar:"الكلام المنقول",
+goal:"تنقل كلام الآخرين بدقة في الحديث والتقارير.",
+r:["عند النقل بفعل ماضٍ (said, told) نرجع الزمن خطوة للخلف: <span class=en>am → was · will → would · can → could · saw → had seen · have seen → had seen</span>.",
+"تتغير الضمائر وكلمات الزمان والمكان: <span class=en>today → that day · tomorrow → the next day · yesterday → the day before · here → there</span>.",
+"<span class=en>say</span> بدون مفعول، و <span class=en>tell</span> + شخص: <span class=en>He said that… · He told me that…</span>",
+"<b>السؤال المنقول</b> يأخذ ترتيب الجملة الخبرية: <span class=en>She asked where I lived.</span> ولسؤال نعم/لا نستخدم <span class=en>if / whether</span>. <b>الأمر</b>: <span class=en>told me (not) to + V</span>."],
+f:["present → past · past → past perfect","will → would · can → could","asked + if / wh- + فاعل + فعل","told + someone + (not) to V"],
+ex:[["“I'm tired.” → He said he was tired.","قال إنه متعب."],["“I'll call you.” → She said she would call me.","قالت إنها ستتصل بي."],["“Where do you live?” → She asked me where I lived.","سألتني أين أسكن."],["“Don't be late.” → He told us not to be late.","طلب منا ألا نتأخر."]],
+m:[["She asked me where do I live.","She asked me where I lived.","السؤال المنقول بدون قلب ولا do."],["He said me…","He told me…","say لا تأخذ شخصاً مباشرة."]],
+tip:"ثلاثة أسئلة عند النقل: هل رجعت الزمن؟ هل غيّرت الضمير؟ هل عدّلت ترتيب السؤال؟",
+q:[["mc","He said, “I am tired.” → He said that he ___ tired.",["is","was","had"],1,"am ← was."],
+["mc","She said, “I will call you.” → She said she ___ call me.",["will","would"],1,"will ← would."],
+["mc","He ___ me that he was busy.",["said","told"],1,"tell + شخص."],
+["mc","“Where do you live?” → She asked me where ___.",["do I live","I lived","did I live"],1,"ترتيب خبري + رجوع زمن."],
+["mc","“Don't be late.” → He told us ___ late.",["not to be","don't be","to not being"],0,"الأمر المنفي ← not to V."],
+["mc","“Are you ready?” → He asked ___ I was ready.",["that","if","what"],1,"سؤال نعم/لا ← if."],
+["fill","“I can swim.” → He said he ___ swim.",["could"],"can ← could."],
+["fill","“I saw the doctor.” → She said she ___ the doctor.",["had seen"],"saw ← had seen."]]});
+
+L({id:"b2-6",lv:3,en:"Modals of deduction",ar:"أفعال الاستنتاج must / might / can't",
+goal:"تعبّر عن درجة يقينك من أمر ما في الحاضر والماضي.",
+r:["<span class=en>must</span> = متأكد أنه صحيح (حتماً). <span class=en>can't</span> = متأكد أنه غير صحيح (مستحيل). <span class=en>might / may / could</span> = محتمل.",
+"للحاضر: <span class=en>modal + V</span>: <span class=en>He must be tired.</span>",
+"للماضي: <span class=en>modal + have + V3</span>: <span class=en>It must have rained. · He can't have seen me.</span>",
+"⚠️ عكس must في الاستنتاج هو can't وليس mustn't."],
+f:["متأكد إيجاباً: must (have V3)","محتمل: might / may / could (have V3)","متأكد سلباً: can't (have V3)"],
+ex:[["He's worked 20 hours. He must be exhausted.","عمل 20 ساعة، لا بد أنه منهك."],["That can't be Ahmed; he's in London.","مستحيل أن يكون أحمد، فهو في لندن."],["She might be at the clinic.","ربما هي في العيادة."],["The ground is wet. It must have rained.","الأرض مبللة، لا بد أنها أمطرت."]],
+m:[["He mustn't be at home. (استنتاج)","He can't be at home.","mustn't للمنع فقط."],["She must to be tired.","She must be tired.","لا to بعد must."]],
+tip:"تخيّل مقياس يقين: must (100%) ← might (50%) ← can't (0%).",
+q:[["mc","He has worked 20 hours. He ___ be exhausted.",["must","can't","might not"],0,"استنتاج قوي إيجابي."],
+["mc","That ___ be Ahmed; he is in London now.",["must","can't","should"],1,"مستحيل ← can't."],
+["mc","I'm not sure where she is. She ___ be at the clinic.",["must","might","can't"],1,"غير متأكد ← might."],
+["mc","The ground is wet. It ___ rained last night.",["must have","can't have","must"],0,"استنتاج عن الماضي ← must have."],
+["mc","He ___ seen me; I wasn't there.",["must have","can't have","might"],1,"مستحيل في الماضي ← can't have."],
+["fill","Take an umbrella. It ___ rain later. (احتمال)",["might","may","could"],"احتمال ← might/may/could."],
+["mc","اختر الجملة الصحيحة:",["She must to be at home.","She must be at home.","She musts be at home."],1,"must + V مجرد."],
+["ord","They might have missed the bus.","ربما فاتتهم الحافلة.","might have + V3."]]});
+
+L({id:"b2-7",lv:3,en:"Question tags",ar:"الأسئلة الذيلية (Question tags)",
+goal:"تطلب التأكيد في آخر الجملة كما يفعل المتحدث الأصلي: أليس كذلك؟",
+r:["جملة <b>مثبتة</b> ← ذيل <b>منفي</b>، وجملة <b>منفية</b> ← ذيل <b>مثبت</b>: <span class=en>You're a nurse, aren't you? · You aren't busy, are you?</span>",
+"نكرر الفعل المساعد الموجود (be, have, can, will…)، وإذا لم يوجد نستخدم <span class=en>do / does / did</span>. والفاعل يُعاد كضمير.",
+"استثناءات مهمة: <span class=en>I am … aren't I? · Let's … shall we? · There is … isn't there?</span> والأمر: <span class=en>Close the door, will you?</span>",
+"كلمات مثل <span class=en>never, nobody, hardly</span> منفية المعنى، فيكون الذيل مثبتاً: <span class=en>He never calls, does he?</span>"],
+f:["مثبت , aux-n't + ضمير ?","منفي , aux + ضمير ?","I am … , aren't I?","Let's … , shall we?"],
+ex:[["She works here, doesn't she?","هي تعمل هنا، أليس كذلك؟"],["They didn't call, did they?","لم يتصلوا، أليس كذلك؟"],["You can drive, can't you?","تستطيع القيادة، أليس كذلك؟"],["Let's start, shall we?","لنبدأ، ما رأيك؟"]],
+m:[["He went, didn't went he?","He went, didn't he?","الذيل مساعد + ضمير فقط."],["I'm late, amn't I?","I'm late, aren't I?","مع I am نستخدم aren't I."]],
+tip:"ابحث عن المساعد في الجملة وانسخه للذيل مع عكس الإثبات والنفي. لا يوجد مساعد؟ استخدم do/does/did حسب الزمن.",
+q:[["mc","You are a doctor, ___?",["are you","aren't you","don't you"],1,"مثبت مع are ← aren't you."],
+["mc","She works at the hospital, ___?",["isn't she","doesn't she","don't she"],1,"works مضارع بسيط ← doesn't she."],
+["mc","They didn't come, ___?",["didn't they","did they","do they"],1,"منفي ← ذيل مثبت did they."],
+["mc","I'm late, ___?",["amn't I","aren't I","isn't I"],1,"استثناء: aren't I."],
+["mc","Let's go, ___?",["shall we","will we","don't we"],0,"Let's ← shall we."],
+["mc","He has never been to Egypt, ___?",["hasn't he","has he"],1,"never منفية ← ذيل مثبت."],
+["fill","You can swim, ___ you?",["can't","cannot"],"مثبت مع can ← can't."],
+["fill","There is a pharmacy nearby, ___ there?",["isn't"],"There is ← isn't there."]]});
+
+/* ================= C1 ================= */
+L({id:"c1-1",lv:4,en:"Third & mixed conditionals",ar:"الشرط الثالث والمختلط",
+goal:"تتكلم عن ندم الماضي ونتائجه بدقة المحترفين.",
+r:["<b>الثالث</b> (ماضٍ لم يحدث): <span class=en>If + had V3, would have V3</span>: <span class=en>If I had known, I would have told you.</span>",
+"<b>المختلط 1</b> (سبب ماضٍ ← نتيجة حاضرة): <span class=en>If + had V3, would + V</span>: <span class=en>If I had taken the job, I would be rich now.</span>",
+"<b>المختلط 2</b> (صفة حاضرة دائمة ← نتيجة ماضية): <span class=en>If + V2, would have V3</span>: <span class=en>If he weren't shy, he would have spoken to her.</span>",
+"لا نستخدم would have بعد if."],
+f:["Third: If had V3, would have V3","Mixed: If had V3, would V (now)","Mixed: If V2 (always), would have V3"],
+ex:[["If we had left earlier, we wouldn't have missed the flight.","لو غادرنا مبكراً لما فاتتنا الرحلة."],["If you had told me, I would have helped.","لو أخبرتني لساعدتك."],["If I had saved money, I would have a car now.","لو ادخرت المال لكان عندي سيارة الآن."],["If she weren't so busy, she would have come.","لو لم تكن مشغولة دائماً لأتت."]],
+m:[["If I would have seen him…","If I had seen him…","لا would بعد if."],["If I had studied, I would pass. (ماضٍ)","…I would have passed.","النتيجة في الماضي تحتاج have V3."]],
+tip:"حدّد زمن كل نصف بشكل مستقل: الشرط متى؟ النتيجة متى؟ ثم اختر الصيغة.",
+q:[["mc","If I had known, I ___ you.",["would tell","would have told","will tell"],1,"ماضٍ لم يحدث ← would have V3."],
+["mc","If she ___ harder, she would have passed.",["studied","had studied","would study"],1,"if + had V3."],
+["mc","If I had taken the job, I ___ rich now.",["would be","would have been"],0,"now ← نتيجة حاضرة (مختلط)."],
+["mc","If he weren't so shy, he ___ to her at the party yesterday.",["would speak","would have spoken"],1,"yesterday ← نتيجة ماضية."],
+["fill","If we had left earlier, we ___ (not miss) the flight.",["wouldn't have missed","would not have missed"],"wouldn't have + V3."],
+["fill","If you ___ (tell) me, I would have helped.",["had told","'d told"],"if + had V3."],
+["mc","اختر الجملة الصحيحة:",["If I would have seen him, I would have said hello.","If I had seen him, I would have said hello."],1,"if + had V3."],
+["ord","If I had saved money, I would have bought a car.","لو أني ادخرت المال لاشتريت سيارة.","Third conditional."]]});
+
+L({id:"c1-2",lv:4,en:"Wish & If only",ar:"التمني wish و if only",
+goal:"تعبّر عن الأمنيات والندم والانزعاج بالتركيب الصحيح.",
+r:["<b>أمنية عن الحاضر</b>: <span class=en>wish + V2</span> (were مع be): <span class=en>I wish I were taller.</span>",
+"<b>ندم على الماضي</b>: <span class=en>wish + had V3</span>: <span class=en>I wish I had studied medicine.</span>",
+"<b>انزعاج / رغبة في تغيير سلوك شخص آخر</b>: <span class=en>wish + would</span>: <span class=en>I wish you would stop.</span> (لا نستخدمها مع I)",
+"<b>قدرة</b>: <span class=en>wish + could</span>. و <span class=en>If only</span> نفس المعنى لكن أقوى عاطفياً."],
+f:["حاضر: wish + V2 / were","ماضٍ: wish + had V3","انزعاج: wish + someone + would V","قدرة: wish + could V"],
+ex:[["I wish I had more free time.","ليت عندي وقت فراغ أكثر."],["I wish I hadn't said that.","ليتني لم أقل ذلك."],["I wish you would listen.","ليتك تستمع."],["If only I could speak French!","لو أني أستطيع التحدث بالفرنسية!"]],
+m:[["I wish I would be rich.","I wish I were rich.","لا would مع I؛ للحاضر نستخدم V2."],["I wish I didn't go yesterday.","I wish I hadn't gone yesterday.","الندم على الماضي ← had V3."]],
+tip:"wish تُرجع الزمن خطوة للخلف دائماً: حاضر ← ماضٍ، ماضٍ ← ماضٍ تام.",
+q:[["mc","I wish I ___ taller.",["am","were","will be"],1,"أمنية حاضرة ← were."],
+["mc","I wish I ___ to the party last night.",["went","had gone","would go"],1,"ندم ماضٍ ← had V3."],
+["mc","I wish you ___ stop making that noise!",["will","would","can"],1,"انزعاج من سلوك ← would."],
+["mc","If only I ___ speak French.",["can","could"],1,"قدرة ← could."],
+["fill","She wishes she ___ (not say) that yesterday.",["hadn't said","had not said"],"ماضٍ ← hadn't + V3."],
+["fill","I wish I ___ (have) more free time now.",["had"],"حاضر ← V2."],
+["mc","اختر الجملة الصحيحة:",["I wish I would be rich.","I wish I were rich."],1,"wish + were."],
+["ord","I wish I had studied medicine.","ليتني درست الطب.","wish + had V3."]]});
+
+L({id:"c1-3",lv:4,en:"Inversion",ar:"التقديم والتأخير (Inversion)",
+goal:"تكتب وتتكلم بأسلوب بليغ ورسمي يلفت الانتباه.",
+r:["عند بدء الجملة بظرف نفي أو تقييد للتأكيد، نقلب الترتيب مثل السؤال: <b>فعل مساعد + فاعل + فعل</b>.",
+"الكلمات: <span class=en>Never, Rarely, Seldom, Not only… but also, Hardly… when, No sooner… than, Under no circumstances, Only then, Little</span>.",
+"إذا لم يوجد فعل مساعد نستخدم do/does/did: <span class=en>Rarely do we see…</span>",
+"<b>الشرط المقلوب</b> (رسمي): <span class=en>Had I known = If I had known · Should you need = If you need · Were I you = If I were you</span>."],
+f:["Never / Rarely + aux + فاعل + V","No sooner had … than …","Hardly had … when …","Had I V3 · Should you V · Were I …"],
+ex:[["Never have I seen such a view.","لم أرَ قط منظراً كهذا."],["Not only was he late, but he also forgot the files.","لم يتأخر فحسب بل نسي الملفات أيضاً."],["No sooner had we arrived than it rained.","ما إن وصلنا حتى أمطرت."],["Should you need help, call me.","إن احتجت مساعدة فاتصل بي."]],
+m:[["Never I have seen…","Never have I seen…","بعد Never يتقدّم المساعد."],["No sooner had we arrived when…","…than…","No sooner تتبعها than دائماً."]],
+tip:"اقرأ الجملة المقلوبة كأنها سؤال بعد الكلمة الأولى: Never + have I seen?",
+q:[["mc","Never ___ such a beautiful view.",["I have seen","have I seen","I saw"],1,"قلب: have I."],
+["mc","Not only ___ late, but he also forgot the files.",["he was","was he","he is"],1,"قلب: was he."],
+["mc","No sooner had we arrived ___ it started to rain.",["when","than","then"],1,"No sooner … than."],
+["mc","Hardly ___ the door when the phone rang.",["I had opened","had I opened"],1,"قلب: had I."],
+["mc","___ I known, I would have come. (= If I had known)",["Have","Had","Did"],1,"شرط مقلوب ← Had."],
+["mc","___ you need help, call me. (= If you need)",["Should","Would","Do"],0,"شرط مقلوب ← Should."],
+["fill","Under no circumstances ___ you leave the patient alone.",["should","must"],"قلب: should you."],
+["ord","Rarely do we see such dedication.","نادراً ما نرى مثل هذا التفاني.","Rarely + do + we + see."]]});
+
+L({id:"c1-4",lv:4,en:"Cleft sentences",ar:"جمل التوكيد (Cleft)",
+goal:"تبرز المعلومة المهمة في الجملة كما يفعل المتحدث الأصلي.",
+r:["<b>It-cleft</b>: <span class=en>It is/was + الجزء المؤكَّد + that/who…</span>: <span class=en>It was Ali who called you.</span> (علي وليس غيره)",
+"<b>What-cleft</b>: <span class=en>What + جملة + is/was + الجزء المؤكَّد</span>: <span class=en>What I need is a holiday.</span>",
+"صيغ أخرى: <span class=en>All I want is… · The reason why… is… · The thing that… is…</span>",
+"فعل be يتبع زمن الجملة: is للحاضر، was للماضي، ويكون مفرداً عادةً مع What و All."],
+f:["It is / was + X + that / who …","What + S + V + is / was + X","All I + V + is + X"],
+ex:[["It was in 2010 that I graduated.","في عام 2010 تخرّجت."],["What surprised me was his honesty.","ما فاجأني هو صدقه."],["All I want is some rest.","كل ما أريده بعض الراحة."],["What he did was call the police.","ما فعله هو أنه اتصل بالشرطة."]],
+m:[["What I need are a holiday.","What I need is a holiday.","المؤكَّد مفرد ← is."],["It was Ali which called.","It was Ali who called.","للعاقل who أو that."]],
+tip:"حوّل أي جملة عادية لجملة توكيد كتمرين يومي: I need sleep ← What I need is sleep.",
+q:[["mc","___ was Ali who called you.",["It","This","He"],0,"It-cleft."],
+["mc","___ I need is a long holiday.",["That","What","Which"],1,"What-cleft."],
+["mc","It was in 2010 ___ I graduated.",["that","what","which"],0,"It was … that."],
+["mc","All I want ___ some rest.",["are","is","be"],1,"All I want is…"],
+["mc","أكّد «الضجيج»: The noise annoys me. →",["What annoys me is the noise.","What the noise annoys me.","It annoys me what the noise."],0,"What + V + is + X."],
+["fill","It ___ my sister who found the keys. (ماضٍ)",["was"],"ماضٍ ← It was."],
+["fill","___ he did was call the police.",["what"],"What-cleft."],
+["ord","What surprised me was his honesty.","ما فاجأني هو صدقه.","What + clause + was + X."]]});
+
+L({id:"c1-5",lv:4,en:"Causative & advanced passive",ar:"السببية والمجهول المتقدم",
+goal:"تتكلم عن خدمات يقدمها غيرك وتنقل الآراء العامة بأسلوب رسمي.",
+r:["<b>السببية</b>: <span class=en>have / get + مفعول + V3</span> = جعلت شخصاً يقوم بالعمل لي: <span class=en>I had my car repaired.</span> (لم أصلحها بنفسي)",
+"<b>المجهول الإخباري</b> لنقل الآراء: <span class=en>It is said that he is rich.</span> أو <span class=en>He is said to be rich.</span>",
+"للماضي في الصيغة الشخصية نستخدم <span class=en>to have + V3</span>: <span class=en>He is believed to have left.</span>",
+"أفعال شائعة: said, believed, thought, known, reported, expected."],
+f:["have / get + object + V3","It is said / believed that + جملة","S + is said to + V (حاضر)","S + is said to have + V3 (ماضٍ)"],
+ex:[["I had my car repaired yesterday.","أصلحت سيارتي (عند الورشة) أمس."],["She's going to have her hair cut.","ستقص شعرها (عند الحلاق)."],["It is said that he is very rich.","يُقال إنه ثري جداً."],["He is believed to have left the country.","يُعتقد أنه غادر البلاد."]],
+m:[["I repaired my car at the garage.","I had my car repaired.","إذا لم تفعلها بنفسك استخدم السببية."],["I had cut my hair. (عند الحلاق)","I had my hair cut.","المفعول يأتي قبل V3."]],
+tip:"ترتيب السببية ثابت: have + الشيء + V3. فكّر: «جعلت الشيء مُصلَحاً».",
+q:[["mc","I ___ my car repaired yesterday.",["had","made","did"],0,"have + object + V3."],
+["mc","She is going to ___ her hair cut.",["have","make","do"],0,"have her hair cut."],
+["mc","It ___ that he is very rich.",["says","is said","said"],1,"It is said that…"],
+["mc","He is believed ___ the country last week.",["to leave","to have left","leaving"],1,"ماضٍ ← to have V3."],
+["mc","We need to get the roof ___.",["fix","fixed","fixing"],1,"get + object + V3."],
+["fill","I am having my house ___ (paint) next week.",["painted"],"V3 بعد المفعول."],
+["fill","The suspect is thought ___ (be) in Jeddah now.",["to be"],"حاضر ← to + V."],
+["ord","We had our kitchen redesigned last year.","أعدنا تصميم مطبخنا (عبر شركة) العام الماضي.","had + object + V3."]]});
+
+L({id:"c1-6",lv:4,en:"Participle clauses",ar:"جمل اسم الفاعل والمفعول",
+goal:"تختصر الجمل وتكتب بأسلوب أكاديمي محكم.",
+r:["<b>Present participle (V-ing)</b> للمبني للمعلوم، لحدثين متزامنين أو للسبب: <span class=en>Opening the door, she saw a stranger.</span>",
+"<b>Past participle (V3)</b> للمعنى المجهول: <span class=en>Built in 1950, the hospital is old.</span> = The hospital was built…",
+"<b>Perfect participle (Having + V3)</b> لحدث اكتمل قبل الآخر: <span class=en>Having finished his work, he went home.</span>",
+"⚠️ <b>قاعدة الفاعل الواحد</b>: فاعل الجملة الرئيسية يجب أن يكون هو فاعل جملة الـ participle، وإلا صار المعنى مضحكاً (dangling participle)."],
+f:["V-ing … , S + V (نفس الوقت/سبب)","V3 … , S + V (مجهول)","Having V3 … , S + V (قبل)","Not + V-ing للنفي"],
+ex:[["Having lost his keys, he called his wife.","بعد أن أضاع مفاتيحه اتصل بزوجته."],["The man sitting next to me is a doctor.","الرجل الجالس بجانبي طبيب."],["Products made here are exported.","المنتجات المصنوعة هنا تُصدَّر."],["Not knowing the answer, he stayed silent.","لعدم معرفته بالإجابة بقي صامتاً."]],
+m:[["Walking to work, the rain started.","Walking to work, I got caught in the rain.","المطر لا يمشي! الفاعل يجب أن يكون نفسه."],["Finished his work, he left.","Having finished his work, he left.","الحدث السابق المعلوم ← Having V3."]],
+tip:"اسأل: من يقوم بالفعل الأول؟ تأكد أنه هو أول اسم بعد الفاصلة.",
+q:[["mc","___ the door, she saw a stranger.",["Opened","Opening","To open"],1,"هي التي فتحت ← V-ing."],
+["mc","___ in 1950, the hospital is very old.",["Building","Built","Having built"],1,"المستشفى بُني ← V3 (مجهول)."],
+["mc","___ his work, he went home.",["Finishing","Having finished","Finished"],1,"اكتمل قبل ← Having V3."],
+["mc","The man ___ next to me is a doctor.",["sitting","sat","sits"],0,"الرجل الجالس ← V-ing."],
+["mc","The products ___ in this factory are exported.",["making","made","make"],1,"تُصنع ← V3."],
+["mc","اختر الجملة الصحيحة (الفاعل يجب أن يكون نفسه):",["Walking to work, the rain started.","Walking to work, I got caught in the rain."],1,"أنا الذي أمشي."],
+["fill","___ (not know) the answer, he stayed silent.",["not knowing"],"النفي: Not + V-ing."],
+["ord","Having lost his keys, he called his wife.","بعد أن أضاع مفاتيحه اتصل بزوجته.","Having + V3 , S + V."]]});
+
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$("#app");
+const KEY="sullam_v1";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const byId={};LESSONS.forEach((l,i)=>{l.idx=i;byId[l.id]=l});
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
+const yest=()=>{const d=new Date(Date.now()-864e5);return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
+
+/* ---------- state ---------- */
+let S={done:{},weak:{},streak:{last:"",n:0},answered:0};
+function load(){try{const v=localStorage.getItem(KEY);if(v)S=Object.assign(S,JSON.parse(v))}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+load();
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove("on"),1800)}
+const canSpeak="speechSynthesis" in window;
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+window._sp=speak;
+const spkBtn=t=>canSpeak?`<button class="spk" onclick='_sp(${JSON.stringify(t).replace(/'/g,"&#39;")})' aria-label="استمع">🔊</button>`:"";
+function bumpStreak(){const t=today();if(S.streak.last===t)return;S.streak.n=S.streak.last===yest()?S.streak.n+1:1;S.streak.last=t}
+const passedCount=()=>LESSONS.filter(l=>S.done[l.id]&&S.done[l.id].passed).length;
+const weakTotal=()=>Object.keys(S.weak).length;
+
+/* ---------- install (PWA) ---------- */
+const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+let deferredPrompt=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;if(document.querySelector(".lvl"))home()});
+addEventListener("appinstalled",()=>{deferredPrompt=null;toast("تم تثبيت التطبيق ✓")});
+function installBanner(){
+  if(standalone||S.hideInstall)return "";
+  if(deferredPrompt)return `<div class="install"><b>📲 ثبّت التطبيق على جوالك</b>يفتح من الشاشة الرئيسية ويعمل بدون إنترنت.<div class="row"><button onclick="_inst()">تثبيت</button><button class="x" onclick="_hideInst()">لاحقاً</button></div></div>`;
+  if(isIOS)return `<div class="install"><b>📲 ثبّت التطبيق على الآيفون</b>اضغط زر المشاركة <b style="display:inline">⬆︎</b> في سفاري ثم اختر «إضافة إلى الشاشة الرئيسية».<div class="row"><button class="x" onclick="_hideInst()">فهمت</button></div></div>`;
+  return `<div class="install"><b>📲 ثبّت التطبيق على جوالك</b>من قائمة المتصفح ⋮ اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».<div class="row"><button class="x" onclick="_hideInst()">فهمت</button></div></div>`;
+}
+window._inst=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;home()};
+window._hideInst=()=>{S.hideInstall=true;save();home()};
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+/* ---------- home ---------- */
+function home(){
+  scrollTo(0,0);
+  const p=passedCount(),pct=Math.round(p/LESSONS.length*100);
+  const next=LESSONS.find(l=>!(S.done[l.id]&&S.done[l.id].passed));
+  let h=`<div class="top"><h1>سُلّم القواعد</h1><span class="pill">🔥 ${S.streak.last===today()||S.streak.last===yest()?S.streak.n:0} يوم</span></div>
+  <div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><b>تقدّمك</b><span class="muted">${p} من ${LESSONS.length} درساً متقناً</span></div><div class="bar"><i style="width:${pct}%"></i></div></div>
+  ${installBanner()}
+  ${!passedCount()&&!S.placed?`<button class="act main" style="width:100%;margin-bottom:10px;background:${LEVELS[2].c};border-color:transparent" onclick="_go('placement')"><b>📍 اختبار تحديد المستوى</b><small>20 سؤالاً تحدد لك من أي درس تبدأ — 5 دقائق تقريباً</small></button>`:""}
+  <div class="hero">
+   ${next?`<button class="act main" onclick="_go('lesson','${next.id}')"><b>▶ تابع التعلّم</b><small>${esc(next.ar)}</small></button>`:`<button class="act main" onclick="_go('daily')"><b>🏆 أكملت السلّم</b><small>حافظ عليه بالمراجعة</small></button>`}
+   <button class="act" onclick="_go('daily')"><b>📅 مراجعة اليوم</b><small>10 أسئلة من دروسك</small></button>
+   <button class="act" onclick="_go('weak')"><b>🎯 نقاط ضعفي</b><small>${weakTotal()?weakTotal()+" سؤالاً للمعالجة":"لا توجد بعد"}</small></button>
+   <button class="act" onclick="_go('settings')"><b>💾 حفظ التقدّم</b><small>نسخة احتياطية</small></button>
+  </div>`;
+  LEVELS.forEach((lv,i)=>{
+    const ls=LESSONS.filter(l=>l.lv===i),dn=ls.filter(l=>S.done[l.id]&&S.done[l.id].passed).length;
+    h+=`<div class="lvl"><span class="badge" style="background:${lv.c}">${lv.code}</span><h2>${lv.ar}</h2><span>${dn}/${ls.length}</span></div><p class="muted" style="margin:0 0 10px">${lv.desc}</p>`;
+    ls.forEach(l=>{const d=S.done[l.id];const ok=d&&d.passed;
+      h+=`<button class="lesson" onclick="_go('lesson','${l.id}')"><span class="num ${ok?"done":""}" style="${ok?"background:"+lv.c:""}">${ok?"✓":l.idx+1}</span><span class="t"><b>${esc(l.ar)}</b><small>${esc(l.en)}</small></span>${d?`<span class="score">${d.tries?d.best+"%":"✓"}</span>`:""}</button>`});
+    h+=`<button class="ltest" onclick="_go('level',${i})">📝 اختبار مستوى ${lv.code} الشامل (15 سؤالاً)</button>`;
+  });
+  h+=`<button class="btn sec" style="margin-top:22px" onclick="_go('placement')">📍 ${S.placed?"أعد":""} اختبار تحديد المستوى</button>`;
+  app.innerHTML=h;
+}
+
+/* ---------- lesson ---------- */
+function lesson(id){
+  scrollTo(0,0);
+  const l=byId[id],lv=LEVELS[l.lv],d=S.done[id];
+  let h=`<div class="top"><button class="back" onclick="_go('home')">→</button><h1 style="font-size:19px">${esc(l.ar)}</h1><span class="badge" style="background:${lv.c}">${lv.code}</span></div>
+  <div class="card"><div class="muted">الدرس ${l.idx+1} · <span class="enb">${esc(l.en)}</span></div><b>🎯 الهدف:</b> ${esc(l.goal)}${d?`<div class="muted" style="margin-top:6px">${d.tries?`أفضل نتيجة: ${d.best}% ${d.passed?"· متقن ✓":"· تحتاج 80% للإتقان"}`:"متقن عبر اختبار تحديد المستوى ✓ — يمكنك التمرّن للتأكد"}</div>`:""}</div>
+  <div class="card rule"><h3>📘 القاعدة</h3>${l.r.map(p=>`<p>${p}</p>`).join("")}</div>
+  <div class="card"><h3>🧩 الصيغة — احفظها</h3><div class="formula">${l.f.map(x=>`<div>${esc(x)}</div>`).join("")}</div></div>
+  <div class="card"><h3>💬 أمثلة</h3>${l.ex.map(e=>`<div class="ex">${spkBtn(e[0])}<div><span class="enb">${esc(e[0])}</span><small>${esc(e[1])}</small></div></div>`).join("")}</div>
+  <div class="card"><h3>⚠️ أخطاء شائعة</h3>${l.m.map(m=>`<div class="mis"><span class="wrong enb">${esc(m[0])}</span><span class="right enb">✓ ${esc(m[1])}</span><small>${esc(m[2])}</small></div>`).join("")}</div>
+  <div class="card tip"><h3>💡 سرّ التثبيت</h3>${esc(l.tip)}</div>
+  <button class="btn" onclick="_go('quiz','${id}')">ابدأ التمارين (${l.q.length})</button>`;
+  const nx=LESSONS[l.idx+1];if(nx)h+=`<button class="btn sec" onclick="_go('lesson','${nx.id}')">الدرس التالي ←</button>`;
+  app.innerHTML=h;
+}
+
+/* ---------- quiz engine ---------- */
+let Q=null;
+function makeItem(lid,i){return {lid,i,key:lid+":"+i,q:byId[lid].q[i],retry:false}}
+function startQuiz(mode,arg){
+  let items=[],title="";
+  if(mode==="lesson"){const l=byId[arg];items=shuffle(l.q.map((_,i)=>makeItem(l.id,i)));title=l.ar}
+  else if(mode==="level"){const ls=LESSONS.filter(l=>l.lv===arg);let all=[];ls.forEach(l=>l.q.forEach((_,i)=>all.push(makeItem(l.id,i))));items=shuffle(all).slice(0,15);title="اختبار مستوى "+LEVELS[arg].code}
+  else if(mode==="weak"){items=shuffle(Object.keys(S.weak).map(k=>{const [a,b]=k.split(":");return byId[a]?makeItem(a,+b):null}).filter(Boolean)).slice(0,15);title="علاج نقاط الضعف"}
+  else if(mode==="placement"){LEVELS.forEach((_,lv)=>{shuffle(LESSONS.filter(l=>l.lv===lv)).slice(0,4).forEach(l=>{const c=l.q.map((_,i)=>i).filter(i=>l.q[i][0]!=="ord");items.push(makeItem(l.id,c[Math.floor(Math.random()*c.length)]))})});title="اختبار تحديد المستوى"}
+  else if(mode==="daily"){
+    const wk=Object.entries(S.weak).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k])=>{const [a,b]=k.split(":");return byId[a]?makeItem(a,+b):null}).filter(Boolean);
+    const used=new Set(wk.map(x=>x.key));let pool=[];
+    LESSONS.filter(l=>S.done[l.id]).forEach(l=>l.q.forEach((_,i)=>{const k=l.id+":"+i;if(!used.has(k))pool.push(makeItem(l.id,i))}));
+    items=shuffle(wk.concat(shuffle(pool).slice(0,10-wk.length)));title="مراجعة اليوم";
+  }
+  if(!items.length){app.innerHTML=`<div class="top"><button class="back" onclick="_go('home')">→</button><h1>${title}</h1></div><div class="card center"><p>${mode==="weak"?"لا توجد أخطاء مسجّلة بعد 👏<br>كل خطأ تقع فيه في التمارين سيظهر هنا لتعالجه.":"ابدأ بدرس واحد على الأقل حتى تظهر لك أسئلة المراجعة."}</p><button class="btn" onclick="_go('home')">العودة</button></div>`;return}
+  Q={mode,arg,title,items,pos:0,total:items.length,first:{},wrong:[]};
+  renderQ();
+}
+function lblType(t){return t==="mc"?"اختر الإجابة الصحيحة":t==="fill"?"اكتب الكلمة الناقصة":"رتّب الكلمات لتكوين جملة صحيحة"}
+function renderQ(){
+  scrollTo(0,0);
+  const it=Q.items[Q.pos],q=it.q,done=Object.keys(Q.first).length;
+  const showLesson=Q.mode!=="lesson";
+  let h=`<div class="qhead"><button class="back" onclick="_quit()">✕</button><div class="bar"><i style="width:${done/Q.total*100}%"></i></div><span class="pill">${done}/${Q.total}</span></div>
+  <div class="card"><div class="qtype"><span>${lblType(q[0])}</span>${it.retry?`<span class="tag">🔁 محاولة ثانية</span>`:""}${showLesson?`<span class="tag">${esc(byId[it.lid].ar)}</span>`:""}</div>`;
+  if(q[0]==="mc"){
+    const isAr=/[؀-ۿ]/.test(q[1])&&!/___/.test(q[1]);
+    h+=`<div class="qtext">${isAr?esc(q[1]):fmtBlank(q[1])}</div>`;
+    it.order=it.order||shuffle(q[2].map((_,i)=>i));
+    h+=it.order.map(i=>`<button class="opt" data-i="${i}">${esc(q[2][i])}</button>`).join("");
+  }else if(q[0]==="fill"){
+    h+=`<div class="qtext">${fmtBlank(q[1])}</div><input class="fill" id="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="اكتب هنا…">`;
+  }else{
+    const toks=q[1].split(" ");
+    if(!it.pool){let s;do{s=shuffle(toks.map((_,i)=>i))}while(toks.length>2&&s.map(i=>toks[i]).join(" ")===q[1]);it.pool=s}
+    it.ans=[];
+    h+=`<div class="hint">المعنى: ${esc(q[2])}</div><div class="zone" id="zone"></div><div class="pool" id="pool"></div>`;
+  }
+  h+=`<div id="fbx"></div></div><button class="btn" id="chk" ${q[0]==="fill"?"":"disabled"}>تحقّق</button>`;
+  app.innerHTML=h;
+  const chk=$("#chk");
+  if(q[0]==="mc"){
+    app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(it.locked)return;app.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");it.sel=+b.dataset.i;chk.disabled=false});
+  }else if(q[0]==="fill"){
+    const f=$("#fin");f.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();chk.click()}};setTimeout(()=>{try{f.focus({preventScroll:true})}catch(e){}},50);
+  }else{drawOrder(it)}
+  it.locked=false;
+  chk.onclick=()=>{if(it.locked){next();return}check(it)};
+}
+function fmtBlank(s){
+  // split Arabic hint in parentheses from English sentence
+  const m=s.match(/^(.*?)(\s*\(([^)]*[؀-ۿ][^)]*)\))?\s*$/);
+  let en=m?m[1]:s,ar=m&&m[3]?m[3]:"";
+  return `<span class="enb">${esc(en).replace(/___/g,'<u style="text-decoration-thickness:2px;color:var(--acc)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</span>${ar?`<div class="muted" style="font-size:14px;font-weight:400">(${esc(ar)})</div>`:""}`;
+}
+function drawOrder(it){
+  const toks=it.q[1].split(" ");
+  const z=$("#zone"),p=$("#pool");
+  z.innerHTML=it.ans.map((ti,k)=>`<button class="chip" data-k="${k}">${esc(toks[ti])}</button>`).join("");
+  p.innerHTML=it.pool.map((ti,k)=>it.ans.includes(ti)?"":`<button class="chip" data-t="${ti}">${esc(toks[ti])}</button>`).join("");
+  z.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{if(it.locked)return;it.ans.splice(+b.dataset.k,1);drawOrder(it)});
+  p.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{if(it.locked)return;it.ans.push(+b.dataset.t);drawOrder(it)});
+  const c=$("#chk");if(c&&!it.locked)c.disabled=it.ans.length!==toks.length;
+}
+const norm=s=>String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g," ").trim().replace(/[.!?,]+$/,"");
+function check(it){
+  const q=it.q;let ok=false,correct="",userTxt="";
+  if(q[0]==="mc"){if(it.sel==null)return;ok=it.sel===q[3];correct=q[2][q[3]];userTxt=q[2][it.sel];
+    app.querySelectorAll(".opt").forEach(b=>{const i=+b.dataset.i;if(i===q[3])b.classList.add("ok");else if(i===it.sel)b.classList.add("no")});
+  }else if(q[0]==="fill"){const v=$("#fin").value;if(!v.trim()){toast("اكتب إجابتك أولاً");return}userTxt=v;ok=q[2].some(a=>norm(a)===norm(v));correct=q[2][0];$("#fin").disabled=true;$("#fin").style.borderColor=ok?"var(--ok)":"var(--bad)";
+  }else{const toks=q[1].split(" ");userTxt=it.ans.map(i=>toks[i]).join(" ");ok=userTxt===q[1];correct=q[1];$("#zone").style.borderColor=ok?"var(--ok)":"var(--bad)"}
+  it.locked=true;
+  const expl=q[0]==="mc"?q[4]:q[3];
+  const first=!(it.key in Q.first);
+  if(first)Q.first[it.key]=ok;
+  S.answered++;
+  // weak tracking
+  if(!ok){S.weak[it.key]=(S.weak[it.key]||0)+1;if(first)Q.wrong.push({it,userTxt,correct});if(!it.retry&&Q.mode!=="placement")Q.items.push(Object.assign({},it,{retry:true,locked:false,sel:null,order:null,pool:null}))}
+  else if(S.weak[it.key]&&(Q.mode!=="lesson"||it.retry)){S.weak[it.key]--;if(S.weak[it.key]<=0)delete S.weak[it.key]}
+  save();
+  const spoken=q[0]==="ord"?q[1]:(q[0]!=="mc"||/___/.test(q[1]))?fillSentence(q,correct):null;
+  $("#fbx").innerHTML=`<div class="fb ${ok?"ok":"no"}"><b>${ok?pick(["أحسنت! ✓","ممتاز ✓","إجابة صحيحة ✓","رائع ✓"]):"ليست صحيحة ✗"}</b>${ok?"":`<div class="ans">${esc(correct)}</div>`}<div style="display:flex;gap:8px;align-items:center;margin-top:4px">${spoken&&canSpeak?spkBtn(spoken):""}<span>${esc(expl)}</span></div>${!ok&&!it.retry&&Q.mode!=="placement"?`<div class="muted" style="margin-top:6px">🔁 سيعود هذا السؤال في آخر التمرين لتثبيته.</div>`:""}</div>`;
+  const c=$("#chk");c.disabled=false;c.textContent=Q.pos+1<Q.items.length?"التالي":"عرض النتيجة";
+  setTimeout(()=>$("#fbx").scrollIntoView({behavior:"smooth",block:"nearest"}),30);
+}
+function fillSentence(q,ans){let s=q[1].replace(/\s*\([^)]*\)\s*$/,"");if(s.includes("→"))s=s.split("→").pop();return s.replace("___",ans).replace(/["“”]/g,"").trim()}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function next(){Q.pos++;if(Q.pos<Q.items.length)renderQ();else result()}
+window._quit=()=>{showConfirm()};
+function showConfirm(){const fb=$("#fbx");fb.innerHTML=`<div class="fb no"><b>هل تريد إنهاء التمرين؟</b><div class="muted">لن تُحسب النتيجة، لكن أخطاءك محفوظة في نقاط الضعف.</div><button class="btn sec" onclick="_go('home')">نعم، خروج</button><button class="btn" onclick="document.getElementById('fbx').innerHTML=''">متابعة</button></div>`;fb.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function result(){
+  scrollTo(0,0);
+  if(Q.mode==="placement")return placementResult();
+  const vals=Object.values(Q.first),c=vals.filter(Boolean).length,pct=Math.round(c/vals.length*100);
+  bumpStreak();
+  let note="";
+  if(Q.mode==="lesson"){const d=S.done[Q.arg]||{best:0,passed:false,tries:0};d.tries++;d.best=Math.max(d.best,pct);if(pct>=80)d.passed=true;S.done[Q.arg]=d;
+    note=pct>=80?"🎉 أتقنت هذا الدرس! انتقل للتالي.":"تحتاج 80% لإتقان الدرس. راجع الشرح ثم أعد المحاولة — التكرار هو ما يثبّت القاعدة.";}
+  else note=pct>=80?"مستوى ممتاز، القواعد ثابتة عندك.":"أخطاؤك أُضيفت إلى نقاط الضعف — عالجها من الصفحة الرئيسية.";
+  save();
+  const msg=pct===100?"مثالي! 🏆":pct>=80?"ممتاز 👏":pct>=60?"جيد، اقتربت 💪":"تحتاج مراجعة 📘";
+  let h=`<div class="top"><button class="back" onclick="_go('home')">→</button><h1 style="font-size:19px">${esc(Q.title)}</h1></div>
+  <div class="card center"><div class="big" style="color:${pct>=80?"var(--ok)":pct>=60?"#d9822b":"var(--bad)"}">${pct}%</div><b>${msg}</b><div class="muted">${c} صحيحة من ${vals.length} من المحاولة الأولى</div><p style="margin:10px 0 0">${note}</p></div>`;
+  if(Q.wrong.length){h+=`<div class="card"><h3>📝 راجع أخطاءك</h3>${Q.wrong.map(w=>{const q=w.it.q;return `<div class="mis"><div class="enb" style="text-align:left">${esc(q[0]==="mc"&&!/___/.test(q[1])?"":q[0]==="ord"?q[2]:q[1])}</div>${w.userTxt?`<span class="wrong enb">${esc(w.userTxt)}</span>`:""}<span class="right enb">✓ ${esc(w.correct)}</span><small>${esc(q[0]==="mc"?q[4]:q[3])}</small></div>`}).join("")}</div>`}
+  if(Q.mode==="lesson"){const l=byId[Q.arg],nx=LESSONS[l.idx+1];
+    if(pct>=80&&nx)h+=`<button class="btn" onclick="_go('lesson','${nx.id}')">الدرس التالي: ${esc(nx.ar)} ←</button>`;
+    h+=`<button class="btn ${pct>=80?"sec":""}" onclick="_go('quiz','${Q.arg}')">أعد التمارين</button><button class="btn sec" onclick="_go('lesson','${Q.arg}')">ارجع للشرح</button>`}
+  else h+=`<button class="btn" onclick="_go('${Q.mode}'${Q.mode==="level"?","+Q.arg:""})">جولة جديدة</button><button class="btn sec" onclick="_go('home')">الرئيسية</button>`;
+  app.innerHTML=h;
+}
+
+function placementResult(){
+  const per=LEVELS.map(()=>[0,0]);
+  Q.items.forEach(it=>{if(it.retry)return;const lv=byId[it.lid].lv;per[lv][1]++;if(Q.first[it.key])per[lv][0]++});
+  let start=per.findIndex(p=>p[0]<3);if(start<0)start=LEVELS.length;
+  S.placed={start,date:today()};bumpStreak();save();
+  const first=LESSONS.find(l=>l.lv===start);
+  let h=`<div class="top"><button class="back" onclick="_go('home')">→</button><h1 style="font-size:19px">نتيجة تحديد المستوى</h1></div>
+  <div class="card center"><div class="muted">مستواك الحالي</div><div class="big" style="font-size:40px;color:${start?LEVELS[start-1].c:LEVELS[0].c}">${start?LEVELS[start-1].code+" · "+LEVELS[start-1].ar:"مبتدئ"}</div>
+  <p style="margin:8px 0 0">${start===0?"ننصحك تبدأ من الدرس الأول — الأساس القوي يختصر عليك الطريق.":start===LEVELS.length?"مستواك متقدم جداً 👏 استخدم اختبارات المستويات ومراجعة اليوم للحفاظ عليه.":"ننصحك تبدأ من مستوى "+LEVELS[start].code+": "+esc(first.ar)+"."}</p></div>
+  <div class="card"><h3>📊 نتيجتك في كل مستوى</h3>${per.map((p,i)=>`<div style="display:flex;align-items:center;gap:10px;margin:8px 0"><span class="badge" style="background:${LEVELS[i].c}">${LEVELS[i].code}</span><div class="bar" style="flex:1"><i style="width:${p[1]?p[0]/p[1]*100:0}%;background:${LEVELS[i].c}"></i></div><span class="score">${p[0]}/${p[1]}</span></div>`).join("")}<p class="muted" style="margin:8px 0 0">يُعتبر المستوى ناجحاً عند 3 من 4. وأخطاؤك أُضيفت إلى نقاط الضعف.</p></div>`;
+  if(start>0&&first)h+=`<button class="btn" onclick="_place(${start})">✓ اعتبر الدروس السابقة متقنة وابدأ من ${esc(first.ar)}</button><button class="btn sec" onclick="_go('lesson','${first.id}')">ابدأ من ${esc(first.ar)} فقط</button>`;
+  else if(start===0)h+=`<button class="btn" onclick="_go('lesson','${LESSONS[0].id}')">ابدأ الدرس الأول</button>`;
+  else h+=`<button class="btn" onclick="_place(${start})">✓ اعتبر كل الدروس متقنة</button>`;
+  h+=`<button class="btn sec" onclick="_go('home')">الرئيسية</button>`;
+  app.innerHTML=h;
+}
+window._place=start=>{LESSONS.filter(l=>l.lv<start).forEach(l=>{if(!(S.done[l.id]&&S.done[l.id].passed))S.done[l.id]={best:0,passed:true,tries:0,placed:true}});save();toast("تم ✓");const f=LESSONS.find(l=>l.lv===start);f?lesson(f.id):home()};
+
+/* ---------- weak & settings ---------- */
+function weak(){
+  scrollTo(0,0);
+  const agg={};Object.entries(S.weak).forEach(([k,v])=>{const id=k.split(":")[0];if(!byId[id])return;agg[id]=(agg[id]||0)+v});
+  const rows=Object.entries(agg).sort((a,b)=>b[1]-a[1]);
+  let h=`<div class="top"><button class="back" onclick="_go('home')">→</button><h1>نقاط ضعفي</h1></div>`;
+  if(!rows.length){h+=`<div class="card center"><p>لا توجد أخطاء مسجّلة 👏<br><span class="muted">كل سؤال تخطئ فيه يُسجَّل هنا، ويُحذف عندما تجيب عليه صحيحاً في المراجعة.</span></p></div><button class="btn" onclick="_go('home')">العودة</button>`;app.innerHTML=h;return}
+  h+=`<div class="card"><p class="muted" style="margin:0 0 8px">الدروس مرتبة من الأضعف. الرقم = عدد مرات الخطأ التي لم تُعالج بعد.</p>${rows.map(([id,n])=>`<div class="wk"><span class="cnt">${n}</span><div><b>${esc(byId[id].ar)}</b><div class="muted">${LEVELS[byId[id].lv].code} · ${esc(byId[id].en)}</div></div><button class="pill" onclick="_go('lesson','${id}')">الشرح</button></div>`).join("")}</div>
+  <button class="btn" onclick="_go('weakquiz')">🎯 تدرّب على أخطائي الآن</button>`;
+  app.innerHTML=h;
+}
+function settings(){
+  scrollTo(0,0);
+  let code="";try{code=btoa(unescape(encodeURIComponent(JSON.stringify(S))))}catch(e){}
+  app.innerHTML=`<div class="top"><button class="back" onclick="_go('home')">→</button><h1>حفظ التقدّم</h1></div>
+  <div class="card"><p style="margin-top:0">يُحفظ تقدّمك تلقائياً على جوالك. إذا غيّرت الجهاز أو حذفت التطبيق، انسخ هذا الرمز واحتفظ به ثم الصقه في الجهاز الآخر.</p>
+  <textarea id="exp" readonly>${code}</textarea><button class="btn" id="cp">📋 انسخ الرمز</button></div>
+  <div class="card"><h3>استعادة من رمز</h3><textarea id="imp" placeholder="الصق الرمز هنا"></textarea><button class="btn sec" id="im">استعادة</button></div>
+  <div class="card"><h3>إحصائيات</h3><div class="muted">أجبت على ${S.answered} سؤالاً · أتقنت ${passedCount()} درساً · ${weakTotal()} سؤالاً في نقاط الضعف</div></div>`;
+  $("#cp").onclick=async()=>{try{await navigator.clipboard.writeText(code);toast("تم النسخ ✓")}catch(e){$("#exp").select();toast("حدّد النص وانسخه يدوياً")}};
+  $("#im").onclick=()=>{try{const o=JSON.parse(decodeURIComponent(escape(atob($("#imp").value.trim()))));if(!o.done)throw 0;S=Object.assign({done:{},weak:{},streak:{last:"",n:0},answered:0},o);save();toast("تمت الاستعادة ✓");home()}catch(e){toast("الرمز غير صالح")}};
+}
+
+/* ---------- router ---------- */
+window._go=(v,a)=>{
+  if(v==="home")home();else if(v==="lesson")lesson(a);else if(v==="quiz")startQuiz("lesson",a);
+  else if(v==="level")startQuiz("level",a);else if(v==="daily")startQuiz("daily");
+  else if(v==="weak")weak();else if(v==="weakquiz")startQuiz("weak");else if(v==="settings")settings();else if(v==="placement")startQuiz("placement");
+};
+home();
+})();
+</script>
+</body>
+</html>
